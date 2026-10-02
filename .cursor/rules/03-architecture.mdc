@@ -1,0 +1,20 @@
+---
+description: Architecture governance - apply when a change adds layers, patterns, frameworks, integrations, breaking API changes or shared data model changes, or when writing or editing ADRs
+alwaysApply: false
+---
+
+# Architecture
+
+Source: `governance/architecture/architecture-governance.md`
+
+- Architecture decisions are human decisions. AI analyses, proposes alternatives, documents.
+- Follow the existing architecture and accepted ADRs. Consistency beats theoretical improvement.
+- Never introduce a pattern, layer or framework only because it is "best practice".
+- ADR required for: new layer/module boundary, new pattern, framework change, breaking API change,
+  shared data model change or migration, new external integration, cross-cutting concerns.
+- Every ADR: Context, Decision, Alternatives (incl. "keep current"), Consequences (incl. negative), Status, Date.
+  Template: `templates/adr.md`. Only a human sets status `Accepted`.
+- Contract first: agree interfaces before parallel frontend/backend work (`orchestration/workflows/fullstack.md`).
+- Major architecture changes are HIGH risk → plan approval required.
+
+Procedure: `skills/architecture/SKILL.md` · Checklist: `checklists/architecture.md`

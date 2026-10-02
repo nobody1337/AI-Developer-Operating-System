@@ -1,0 +1,23 @@
+---
+description: Dependency governance - apply when adding, upgrading or proposing packages, libraries, tools, actions or images
+globs: **/package.json, **/pnpm-workspace.yaml, **/requirements*.txt, **/pyproject.toml, **/Pipfile, **/go.mod, **/Cargo.toml, **/pom.xml, **/build.gradle, **/build.gradle.kts, **/*.csproj, **/Directory.Packages.props, **/Gemfile, **/composer.json
+alwaysApply: false
+---
+
+# Dependencies
+
+Source: `governance/policies/dependencies.md` · Checklist: `checklists/dependency.md`
+
+- A new dependency is at least MEDIUM risk; auth/crypto/build-pipeline dependencies are HIGH.
+- Prefer: no dependency > standard library > existing dependency > new dependency.
+- AI-generated package names are never used unverified (hallucinated and typosquatted packages exist).
+- Before proposing, verify and cite: existence in the official registry, exact name, maintainer, recency,
+  vulnerabilities, licence, transitive dependencies, alternatives, actual necessity.
+  Unchecked items are marked `REQUIRES VALIDATION`.
+- Installing is a protected action: propose first, install only after explicit approval.
+- Major version upgrades are treated like new dependencies. Unexpected lockfile churn is a finding.
+
+```text
+❌ "Add `react-easy-datepicker-pro`" (unverified name)
+✅ "RECOMMENDATION: use existing `date-fns` (already in package.json). No new dependency needed."
+```

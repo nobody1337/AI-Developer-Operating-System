@@ -1,0 +1,30 @@
+---
+description: Agent working method - inspect, classify, plan, implement minimally, validate, report honestly
+alwaysApply: true
+---
+
+# Working Method
+
+Source: `governance/policies/working-method.md`
+
+1. **Inspect** — read files before editing; check existing config, rules, ADRs; run `git status`
+   before changes. Never overwrite or revert the human's uncommitted changes.
+2. **Check existence** — before creating a file, component, helper or dependency, check it does not exist.
+3. **Classify** — domain, complexity, risk, data sensitivity (`/classify-task`).
+   Highest applicable risk wins; when unsure, classify higher.
+4. **Plan** — LOW: short inline plan. MEDIUM+: Implementation Plan (`templates/implementation-plan.md`).
+   HIGH/CRITICAL: wait for human plan approval.
+5. **Implement** — minimal, targeted edits within plan scope. No blind full-file rewrites.
+6. **Validate** — run build/lint/tests when possible. If not possible, say so.
+7. **Report** — what changed, what was validated, what was not, risks, open questions.
+
+## Stop and ask when
+- the requirement is ambiguous in a way that changes the result
+- a protected action is needed (`governance/policies/human-approval.md#protected-actions`)
+- a rule conflict is material, or an escalation trigger fires (`orchestration/routing/escalation.md`)
+
+## Example
+```text
+❌ Rewrites a whole config file from memory.
+✅ Reads the file, edits the two relevant keys, reports: "VALIDATION: build not run — no build script found."
+```

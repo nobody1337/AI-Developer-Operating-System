@@ -1,0 +1,40 @@
+# EXAMPLE task state record (illustrative only; not real project data)
+schema_version: 1
+task_id: TASK-20261002-dashboard-widget
+title: Implement Angular dashboard component
+state: REVIEW
+classification:
+  domain: frontend
+  complexity: MEDIUM
+  risk: LOW
+  data_sensitivity: internal
+  workflow: frontend
+roles: ["planner[frontend]", frontend-developer, "tester[frontend]", "code-reviewer[accessibility]"]
+routing:
+  - step: implementation
+    role: frontend-developer
+    profile: strong_reasoning
+    model: UNKNOWN              # chosen by the human in the IDE; not recorded by tooling
+    model_selected_by: human
+artifacts:
+  task_specification: task-specification.md
+  implementation_plan: implementation-plan.md
+  implementation_report: implementation-report.md
+  test_report: test-report.md
+gates:
+  planning:       { status: passed, evidence: implementation-plan.md }
+  architecture:   { status: not_applicable, evidence: "No architecture impact (plan section 3)" }
+  implementation: { status: passed, evidence: "implementation-report.md: build + lint executed" }
+  testing:        { status: passed, evidence: "test-report.md: 14 tests executed, 0 failed" }
+  security:       { status: not_applicable, evidence: "No security-relevant aspects (plan section 5)" }
+  review:         { status: not_run, evidence: "Review in progress" }
+  release:        { status: not_applicable, evidence: "Not a release" }
+approvals: []
+waiting_for: null
+history:
+  - { at: 2026-10-02T09:00:00+02:00, from: NEW, to: CLASSIFIED, by: "agent:planner@session-a", reason: "Classified LOW risk" }
+  - { at: 2026-10-02T09:10:00+02:00, from: CLASSIFIED, to: PLANNED, by: "agent:planner@session-a", reason: "Plan written" }
+  - { at: 2026-10-02T09:15:00+02:00, from: PLANNED, to: IMPLEMENTING, by: "agent:frontend-developer@session-b", reason: "LOW risk, no approval required" }
+  - { at: 2026-10-02T10:00:00+02:00, from: IMPLEMENTING, to: TESTING, by: "agent:frontend-developer@session-b", reason: "Implementation done" }
+  - { at: 2026-10-02T10:20:00+02:00, from: TESTING, to: REVIEW, by: "agent:tester@session-b", reason: "Tests executed" }
+updated_at: 2026-10-02T10:20:00+02:00

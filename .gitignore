@@ -1,0 +1,78 @@
+# ---------------------------------------------------------------------------
+# AI-DOS .gitignore
+# Prevents committing secrets, local runtime state and junk.
+# ---------------------------------------------------------------------------
+
+# --- Secrets and credentials ------------------------------------------------
+.env
+.env.*
+!.env.example
+*.env
+.envrc
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.crt
+*.cer
+*.der
+*.csr
+*.kdbx
+id_rsa*
+id_ed25519*
+id_ecdsa*
+*.ppk
+credentials
+credentials.*
+*credentials*.json
+secrets.*
+*.secret
+*.secrets
+.npmrc
+.pypirc
+.netrc
+service-account*.json
+*.tfvars
+*.tfstate
+*.tfstate.*
+
+# --- AI-DOS runtime data (keep README and schemas) --------------------------
+orchestration/state/runtime/
+.ai-dos/runtime/
+*.audit.log
+
+# --- Logs and temporary files -----------------------------------------------
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*~
+
+# --- OS junk ----------------------------------------------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# --- IDE / editor (project rules under .cursor/ ARE tracked) ----------------
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.iml
+*.code-workspace
+
+# --- Common build/dependency output (if tooling is added later) -------------
+node_modules/
+dist/
+build/
+.venv/
+venv/
+__pycache__/
+*.pyc
+coverage/

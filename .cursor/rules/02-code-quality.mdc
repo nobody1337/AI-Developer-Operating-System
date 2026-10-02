@@ -1,0 +1,30 @@
+---
+description: Software engineering standards for source code - naming, modularity, error handling, logging, no unnecessary abstraction
+globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx, **/*.mjs, **/*.cjs, **/*.vue, **/*.svelte, **/*.py, **/*.java, **/*.kt, **/*.cs, **/*.go, **/*.rs, **/*.rb, **/*.php, **/*.swift, **/*.scala, **/*.c, **/*.cpp, **/*.h, **/*.hpp, **/*.html, **/*.css, **/*.scss, **/*.sql
+alwaysApply: false
+---
+
+# Code Quality
+
+Source: `governance/quality/engineering-standards.md`
+
+- Follow the project's existing conventions, structure and style; do not reformat unrelated code.
+- Names express intent and domain meaning.
+- Reuse existing services/utilities before creating new ones.
+- No abstraction, layer or configuration without a present, concrete need.
+- Never swallow errors; handle, add context, or propagate. Fail closed on security decisions.
+- Never log secrets, tokens, credentials or personal data.
+- Keep backward compatibility for APIs unless an ADR says otherwise.
+- Document known shortcuts as technical debt in the report; do not hide them.
+
+```ts
+// ❌ swallowed error
+try { await save(order); } catch {}
+
+// ✅ context + propagate
+try { await save(order); }
+catch (e) { logger.error('Order save failed', { orderId: order.id }); throw new OrderSaveError(order.id, { cause: e }); }
+```
+
+AI-generated code is unverified until validated: verify that imported packages and used APIs exist in the
+installed versions (`checklists/ai-generated-code.md`).

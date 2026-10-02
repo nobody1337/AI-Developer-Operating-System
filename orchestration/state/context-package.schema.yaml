@@ -1,0 +1,40 @@
+# Context Package — schema (conceptual, informal) + example
+# Status: Conceptual. Not produced or validated by any tool in this version.
+
+schema_version: 1
+fields:
+  task_id:        { type: string, required: true }
+  step:           { type: string, description: "workflow step, e.g. implementation" }
+  role:           { type: string, description: "role id or specialisation" }
+  sensitivity:    { type: enum, values: [public, internal, confidential, restricted], required: true }
+  requirements:   { type: list, items: "acceptance criteria or artifact refs" }
+  files:          { type: list, items: { path: string, mode: "change|read", reason: string, trust: "trusted_governance|semi_trusted|untrusted" } }
+  architecture:   { type: list, items: "ADR or architecture doc refs with reason" }
+  rules:          { type: list, items: "governance/rule file refs" }
+  tests:          { type: object, properties: { existing: list, commands: list } }
+  constraints:    { type: list, items: string }
+  excluded:       { type: list, items: { path: string, reason: string } }
+
+example:
+  task_id: TASK-20261002-dashboard-widget
+  step: implementation
+  role: frontend-developer
+  sensitivity: internal
+  requirements:
+    - "task-specification.md#acceptance-criteria"
+  files:
+    - { path: src/app/dashboard/dashboard.component.ts, mode: change, reason: "host of new widget", trust: untrusted }
+    - { path: src/app/shared/stats.service.ts, mode: read, reason: "existing data source to reuse", trust: untrusted }
+  architecture:
+    - "No relevant ADR (stated in plan)"
+  rules:
+    - governance/quality/engineering-standards.md
+    - .cursor/rules/05-testing.mdc
+  tests:
+    existing: [src/app/dashboard/dashboard.component.spec.ts]
+    commands: ["npm test -- --watch=false", "npm run lint"]
+  constraints:
+    - "Do not change routing"
+    - "No new dependencies"
+  excluded:
+    - { path: .env, reason: "secrets" }

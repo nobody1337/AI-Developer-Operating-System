@@ -1,0 +1,8 @@
+# Normalise line endings to LF in the repository regardless of core.autocrlf,
+# so governance files diff cleanly across Windows, macOS and Linux agents.
+* text=auto eol=lf
+
+*.md    text eol=lf
+*.mdc   text eol=lf
+*.yaml  text eol=lf
+*.yml   text eol=lf

@@ -1,0 +1,30 @@
+---
+description: Testing governance - test analysis, meaningful AI-generated tests, honest test reporting
+globs: **/*.test.*, **/*.spec.*, **/test/**, **/tests/**, **/__tests__/**, **/e2e/**, **/*_test.go, **/test_*.py
+alwaysApply: false
+---
+
+# Testing
+
+Source: `governance/quality/testing.md`
+
+For every change answer: which tests exist · which must be adapted (why) · which new tests are needed ·
+which edge cases apply · what the regression risk is.
+
+## Rules for AI-written tests
+- No tautological tests (asserting mocks or constants).
+- Never weaken assertions, broaden matchers, skip or delete tests to make a change pass.
+  Changing an expectation needs a stated reason; disabling tests needs human approval.
+- Test behaviour, not implementation details. Mock only at real boundaries. Keep tests deterministic.
+- Bugfixes get a regression test that fails without the fix (where feasible).
+
+```ts
+// ❌ tautological
+mockRepo.find.mockReturnValue(user); expect(mockRepo.find()).toBe(user);
+// ✅ behaviour
+mockRepo.find.mockReturnValue(inactiveUser); expect(() => service.login(inactiveUser.id)).toThrow(AccountInactiveError);
+```
+
+## Reporting
+Report exact commands and real results. Tests not run are `not_run` with reason — never "passed".
+Template: `templates/test-report.md` · Procedure: `skills/testing/SKILL.md`

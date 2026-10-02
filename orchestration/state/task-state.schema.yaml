@@ -1,0 +1,34 @@
+# Task State Record — schema (conceptual, informal YAML description)
+# Status: Conceptual. Not validated by any tool in this version.
+# Vocabulary: governance/vocabulary.md
+
+schema_version: 1
+fields:
+  task_id:            { type: string, required: true, pattern: "TASK-YYYYMMDD-<slug>" }
+  title:              { type: string, required: true }
+  state:              { type: enum, required: true,
+                        values: [NEW, CLASSIFIED, PLANNED, APPROVED, IMPLEMENTING, TESTING, REVIEW,
+                                 SECURITY_REVIEW, WAITING_FOR_HUMAN, COMPLETED, BLOCKED, FAILED, CANCELLED] }
+  classification:
+    domain:           { type: string }
+    complexity:       { type: enum, values: [LOW, MEDIUM, HIGH] }
+    risk:             { type: enum, values: [LOW, MEDIUM, HIGH, CRITICAL] }
+    data_sensitivity: { type: enum, values: [public, internal, confidential, restricted] }
+    workflow:         { type: string, description: "workflow id, e.g. feature" }
+  roles:              { type: list, items: "role id or specialisation, e.g. planner[frontend]" }
+  routing:            { type: list, description: "per step: role, profile, model (registry id or UNKNOWN), model_selected_by" }
+  artifacts:          { type: map, description: "artifact id -> relative path, e.g. implementation_plan: plan.md" }
+  gates:              { type: map, description: "gate id -> {status, evidence}",
+                        gate_ids: [planning, architecture, implementation, testing, security, review, release],
+                        status_values: [passed, failed, not_run, not_applicable, waived_with_approval] }
+  approvals:          { type: list, description: "approval_id references (templates/approval-record.md)" }
+  waiting_for:        { type: string, description: "required when state is WAITING_FOR_HUMAN or BLOCKED" }
+  history:
+    type: list
+    items:
+      at:             { type: datetime }
+      from:           { type: enum }
+      to:             { type: enum }
+      by:             { type: string, description: "agent:<role>@<session> or human:<name>" }
+      reason:         { type: string }
+  updated_at:         { type: datetime, required: true }

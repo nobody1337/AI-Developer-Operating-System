@@ -1,0 +1,49 @@
+# Audit Record — schema (conceptual, informal YAML description) + example
+# Status: Conceptual. Not produced or validated by any tool in this version.
+
+schema_version: 1
+fields:
+  audit_id:      { type: string, required: true, pattern: "AUD-YYYYMMDD-NNN" }
+  task_id:       { type: string, required: true }
+  at:            { type: datetime, required: true }
+  event:         { type: enum, required: true,
+                   values: [state_transition, classification, routing_recommendation, artifact_created,
+                            artifact_updated, command_executed, test_executed, gate_evaluated, escalation,
+                            approval_requested, approval_recorded, protected_action_executed, injection_suspected] }
+  actor:
+    type:              { type: enum, values: [agent, human, tool] }
+    agent_id:          { type: string }
+    role:              { type: string, description: "role id or specialisation" }
+    model_id:          { type: string, description: "registry id or UNKNOWN" }
+    model_selected_by: { type: enum, values: [human, ide, orchestrator, unknown] }
+  active_rules:  { type: list, items: "path of rule / governance file in force" }
+  changed_files: { type: list, items: "path" }
+  commands:      { type: list, items: { command: string, exit_code: integer, executed: boolean } }
+  tests:         { type: list, items: { suite: string, command: string, result: "passed|failed|not_run", executed: boolean } }
+  reviews:       { type: list, items: { artifact: path, reviewer_role: string, independent: boolean } }
+  gates:         { type: list, items: { gate: string, status: string, evidence: string } }
+  approvals:     { type: list, items: "approval_id" }
+  details:       { type: string }
+
+example:
+  audit_id: AUD-20261002-007
+  task_id: TASK-20261002-dashboard-widget
+  at: 2026-10-02T10:20:00+02:00
+  event: test_executed
+  actor:
+    type: agent
+    agent_id: session-b
+    role: tester[frontend]
+    model_id: UNKNOWN
+    model_selected_by: human
+  active_rules: [.cursor/rules/05-testing.mdc, governance/quality/testing.md]
+  changed_files: [src/app/dashboard/dashboard-widget.component.spec.ts]
+  commands:
+    - { command: "npm test -- --watch=false", exit_code: 0, executed: true }
+  tests:
+    - { suite: unit, command: "npm test -- --watch=false", result: passed, executed: true }
+  reviews: []
+  gates:
+    - { gate: testing, status: passed, evidence: test-report.md }
+  approvals: []
+  details: "EXAMPLE ONLY"

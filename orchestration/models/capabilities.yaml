@@ -1,0 +1,78 @@
+# AI-DOS Capability Vocabulary
+# Single source of truth for capability ids and levels.
+# Used by: roles (required capabilities), model registry (model capabilities),
+# task classification (required capabilities), routing and evaluation.
+#
+# Status: Governance Definition. Levels are qualitative judgements, not
+# objective measurements. Any value not backed by evidence MUST be `unknown`.
+
+schema_version: 1
+
+levels:
+  # Ordered from lowest to highest. `unknown` is NOT ranked: it never satisfies
+  # a minimum requirement and must not be treated as `basic`.
+  - id: unknown
+    definition: No verified evidence exists for this capability. Default for every unverified value.
+  - id: basic
+    definition: Handles simple, well-specified tasks with frequent errors; output needs thorough review and correction.
+  - id: good
+    definition: Handles typical tasks of moderate complexity reliably; occasional errors caught by normal review.
+  - id: strong
+    definition: Handles complex tasks reliably, including ambiguous requirements and multi-file changes; errors are infrequent.
+  - id: excellent
+    definition: Handles the hardest tasks in this area consistently across repeated evaluations; still requires review, never assumed infallible.
+
+level_order: [basic, good, strong, excellent]
+
+capabilities:
+  # --- Cognitive / general ---
+  - id: reasoning
+    definition: Multi-step logical analysis, trade-off evaluation, root-cause analysis.
+  - id: planning
+    definition: Decomposing requirements into ordered, verifiable steps with risks and dependencies.
+  - id: instruction_following
+    definition: Adhering precisely to instructions, governance rules, scope limits and output formats.
+  - id: context_handling
+    definition: Using large or multi-source context accurately without losing or confusing details.
+  - id: tool_use
+    definition: Reliable use of tools (file editing, terminal, search, browser, git) including correct interpretation of results.
+
+  # --- Engineering ---
+  - id: architecture
+    definition: System and module design, boundaries, patterns, trade-offs, ADR quality.
+  - id: coding
+    definition: Writing correct, idiomatic, maintainable code in general.
+  - id: frontend
+    definition: UI implementation, components, state management, browser behaviour, styling.
+  - id: backend
+    definition: Server-side logic, APIs, services, concurrency, integration.
+  - id: database
+    definition: Data modelling, queries, indexing, migrations, transactional integrity.
+  - id: devops
+    definition: CI/CD, infrastructure as code, containers, environments, observability.
+  - id: api_design
+    definition: Designing consistent, versioned, backward-compatible interfaces and contracts.
+  - id: framework_knowledge
+    definition: >-
+      Accurate knowledge of a specific framework or library. Always qualified
+      with the framework name in roles/tasks (e.g. framework_knowledge: angular).
+  - id: testing
+    definition: Designing and writing meaningful unit, integration and E2E tests; test strategy.
+  - id: debugging
+    definition: Reproducing, isolating and fixing defects based on evidence.
+  - id: refactoring
+    definition: Behaviour-preserving structural improvement in small, safe steps.
+  - id: security
+    definition: Threat modelling, secure coding, vulnerability identification, security controls.
+  - id: review
+    definition: Critical evaluation of changes for correctness, risk and quality; finding non-obvious defects.
+  - id: documentation
+    definition: Clear, accurate, concise technical writing at the appropriate level.
+  - id: ux
+    definition: Usability, interaction design, consistency, user-facing wording.
+  - id: accessibility
+    definition: WCAG-oriented accessibility, semantic markup, keyboard and assistive technology support.
+
+# Properties that are NOT capabilities (recorded elsewhere in the registry):
+#   context.size, performance.speed, performance.reliability,
+#   economics.cost_class, tools.*, deployment, data_policy.*

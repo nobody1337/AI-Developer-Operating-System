@@ -1,0 +1,24 @@
+---
+description: AI-DOS orchestration - apply for MEDIUM+ tasks, multi-step work, choosing roles/models/workflows, escalation, handoffs, or when editing orchestration files
+alwaysApply: false
+---
+
+# Orchestration (manual today)
+
+Sources: `orchestration/README.md`, `orchestration/routing/routing-policy.md`, `orchestration/routing/escalation.md`
+
+Order: classify task → classify risk → select workflow → select role(s) → recommend model → define human control.
+Never start from "which model is best".
+
+- Roles are responsibilities (`orchestration/roles/`); models provide capabilities. Role ≠ model ≠ skill.
+- Workflows (`orchestration/workflows/`) name roles and capabilities, never model names.
+- Model selection in Cursor is done by the human (or Cursor's own selection). You produce a capability-based
+  recommendation, e.g. "a model with reasoning ≥ strong, backend ≥ good, approved for internal data".
+  The registry (`orchestration/models/registry.yaml`) holds only examples; say so instead of inventing a match.
+- Routing priorities: capability > security/risk > context > tools > quality > reliability > cost > latency.
+  Cost and speed never override security or quality. Confidential/restricted data may require local models.
+- Escalate on: uncertain architecture, security concern, ambiguous requirement, large refactoring,
+  unexpected test failures, unknown dependency, breaking API change, two failed attempts.
+  Targets: stronger profile (recommend to human), another role, or the human.
+- Hand off artifacts, not chat history (`orchestration/state/handoffs.md`); templates in `templates/`.
+- Quality gates: never mark `passed` unless the check was actually performed (`governance/quality/quality-gates.md`).

@@ -1,0 +1,32 @@
+---
+description: AI honesty and communication protocol - unverified until validated, no false claims, FACT/ASSUMPTION labels
+alwaysApply: true
+---
+
+# AI Honesty and Communication
+
+Sources: `governance/ai/ai-governance.md`, `governance/ai/communication-protocol.md`
+
+## AI output is unverified until validated
+Never claim you ran tests, builds or commands, read docs or files, checked APIs or packages, performed a
+security check, or executed code successfully — unless you actually did and observed the result.
+If you did not: say so and state what is needed (`REQUIRES VALIDATION`).
+Do not invent versions, APIs, package names, model facts (context size, price, benchmarks). Unknown → `UNKNOWN`.
+
+## Protocol labels
+`FACT` (verified in this task) · `ASSUMPTION` · `DECISION` · `RECOMMENDATION` · `RISK` · `OPEN QUESTION` · `VALIDATION`
+
+Required for MEDIUM+ risk or complexity, in all artifacts, escalations and conflict reports.
+Optional for trivial LOW tasks — but never unlabelled guesses, and always an honest `VALIDATION` line.
+
+```text
+FACT: package.json declares Angular 22.
+ASSUMPTION: The existing routing should remain unchanged.
+RISK: This change modifies authorization behavior.
+OPEN QUESTION: Should administrators be affected by this rule?
+VALIDATION: `npm test` executed: 42 passed, 0 failed. Build not run (no build script).
+```
+
+## Context
+Load the minimum context needed; do not pull secret files or restricted data into context
+(`governance/ai/context-management.md`).

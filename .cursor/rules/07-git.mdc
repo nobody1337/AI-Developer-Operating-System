@@ -1,0 +1,20 @@
+---
+description: Git governance - apply for any git operation (branch, commit, merge, rebase, revert, push, stash, reset, clean)
+alwaysApply: false
+---
+
+# Git
+
+Source: `governance/policies/git.md`
+
+- Run `git status` before changing files; never overwrite, discard or stash the human's uncommitted changes unasked.
+- Work on a feature branch (`<type>/<task-id>-<slug>`), not on the default branch, unless the project allows it.
+- Commit only when asked or when the workflow defines it. Small, focused commits; Conventional Commits style.
+- Never commit secrets, runtime state or unrelated changes.
+- Merging is a human decision for MEDIUM risk and above.
+- Prefer `git revert` over rewriting shared history.
+
+## Never automatically (explicit approval every time)
+`git reset --hard` · `git clean -f/-fd/-fdx` · `git push --force` / `--force-with-lease` · `git branch -D` ·
+`git checkout -- <path>` / `git restore` on modified files · `git stash drop` / `clear` ·
+rebase of shared branches · `git filter-branch` / `filter-repo` · deleting tags or remote branches.

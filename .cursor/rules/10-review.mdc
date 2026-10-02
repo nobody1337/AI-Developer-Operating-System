@@ -1,0 +1,21 @@
+---
+description: Code review process - apply when reviewing diffs, pull requests or AI-generated changes, or writing a Review Report
+alwaysApply: false
+---
+
+# Review
+
+Source: `governance/quality/code-review.md` · Checklist: `checklists/code-review.md` · Report: `templates/code-review.md`
+
+- Required for MEDIUM risk and above; optional for LOW.
+- Independence: never review work you authored in this session. HIGH/CRITICAL: a different model than the
+  author where available, plus human review — if not available, state it as `RISK:`.
+- Do not modify the code under review; report findings.
+- Review dimensions: Correctness · Architecture · Security · Tests · Error Handling · Performance ·
+  Maintainability · Dependencies · Breaking Changes · Unexpected Changes.
+- Verify claims: re-run build/tests where possible; state what was verified by execution vs. by reading.
+- Apply `checklists/ai-generated-code.md` (hallucinated APIs/packages, tautological tests, scope creep).
+- Severity: `blocker` · `major` · `minor` · `note`. Verdict: `approve` · `request_changes` · `needs_human_decision`.
+- An AI `approve` is a recommendation; merging MEDIUM+ is a human decision.
+
+Procedure: `skills/code-review/SKILL.md` · Security reviews: `skills/security/SKILL.md`

@@ -1,0 +1,226 @@
+# AI-DOS Model Registry
+#
+# IMPORTANT
+# - Every entry in this file is an EXAMPLE (status: example). Examples
+#   illustrate the schema. They are NOT architecture, NOT recommendations and
+#   NOT verified facts. Model names were supplied as illustrative examples;
+#   their existence, provider, version and properties have not been verified.
+# - Unverified values are `unknown`. Never fill in context sizes, prices or
+#   benchmark results without evidence (see verification block).
+# - Entries with status `example` are never selectable by routing.
+# - Workflows and roles never reference entries here by name; they reference
+#   capabilities (see capabilities.yaml and selection-policy.md).
+#
+# Field reference
+#   id                  stable registry id (kebab-case), not the vendor name
+#   provider            openai | anthropic | google | cursor | local | self_hosted | other | unknown
+#   name, version       vendor product name and exact version string, or unknown
+#   status              example | discovered | candidate | evaluated | approved | preferred | deprecated | retired
+#   deployment          hosted | local | self_hosted | unknown
+#   capabilities        map of capability id -> level (ids and levels from capabilities.yaml)
+#   context.size        token count as verified number, or unknown
+#   performance         speed: unknown|slow|medium|fast ; quality, reliability: capability level
+#   economics.cost_class  unknown | low | medium | high
+#   tools               filesystem/terminal/browser/git: unknown | yes | no (in the integration used)
+#   data_policy         max_data_sensitivity (set by a human at approval): unknown | public | internal | confidential | restricted
+#                       training_on_inputs, retention: unknown | <verified statement>
+#   preferred_roles     intended roles (role ids); a hint for evaluation, not a verified fit, never used for eligibility
+#   approved_roles      roles a human approved this model for (set at status `approved`); used by routing eligibility
+#   limitations, notes  free text
+#   evaluation          hallucination_rate: unknown|low|medium|high ; last_report: path or null
+#   verification        verified_by, verified_at (ISO date), evidence (list of links/report paths)
+#                       Empty verification => every value in the entry is unverified.
+
+schema_version: 1
+
+models:
+  - id: planning-model
+    provider: unknown            # name given as an example; provider not verified
+    name: "GPT-6 Luna"
+    version: unknown
+    status: example
+    deployment: unknown
+    capabilities:
+      reasoning: unknown
+      planning: unknown
+      architecture: unknown
+      coding: unknown
+      frontend: unknown
+      backend: unknown
+      database: unknown
+      testing: unknown
+      security: unknown
+      review: unknown
+      documentation: unknown
+      instruction_following: unknown
+      context_handling: unknown
+      tool_use: unknown
+    context:
+      size: unknown
+    performance:
+      speed: unknown
+      quality: unknown
+      reliability: unknown
+    economics:
+      cost_class: unknown
+    tools:
+      filesystem: unknown
+      terminal: unknown
+      browser: unknown
+      git: unknown
+    data_policy:
+      max_data_sensitivity: unknown
+      training_on_inputs: unknown
+      retention: unknown
+    preferred_roles: [planner, architect]   # intended use only
+    approved_roles: []                  # set by a human at approval; empty = not selectable
+    limitations: [unknown]
+    notes: >-
+      Illustrative entry showing how a model intended for planning and
+      architecture would be registered. Must be verified and evaluated before
+      any status change.
+    evaluation:
+      hallucination_rate: unknown
+      last_report: null
+    verification:
+      verified_by: null
+      verified_at: null
+      evidence: []
+
+  - id: implementation-model
+    provider: unknown            # name given as an example; provider not verified
+    name: "Composer 2.5"
+    version: unknown
+    status: example
+    deployment: unknown
+    capabilities:
+      reasoning: unknown
+      planning: unknown
+      coding: unknown
+      frontend: unknown
+      backend: unknown
+      testing: unknown
+      debugging: unknown
+      refactoring: unknown
+      instruction_following: unknown
+      tool_use: unknown
+    context:
+      size: unknown
+    performance:
+      speed: unknown
+      quality: unknown
+      reliability: unknown
+    economics:
+      cost_class: unknown
+    tools:
+      filesystem: unknown
+      terminal: unknown
+      browser: unknown
+      git: unknown
+    data_policy:
+      max_data_sensitivity: unknown
+      training_on_inputs: unknown
+      retention: unknown
+    preferred_roles: [frontend-developer, backend-developer, tester]   # intended use only
+    approved_roles: []                  # set by a human at approval; empty = not selectable
+    limitations: [unknown]
+    notes: >-
+      Illustrative entry for a fast implementation model used for LOW
+      complexity tasks. Values must be verified and evaluated.
+    evaluation:
+      hallucination_rate: unknown
+      last_report: null
+    verification:
+      verified_by: null
+      verified_at: null
+      evidence: []
+
+  - id: review-model
+    provider: unknown
+    name: "Example Independent Review Model (placeholder)"
+    version: unknown
+    status: example
+    deployment: unknown
+    capabilities:
+      reasoning: unknown
+      review: unknown
+      security: unknown
+      testing: unknown
+      instruction_following: unknown
+    context:
+      size: unknown
+    performance:
+      speed: unknown
+      quality: unknown
+      reliability: unknown
+    economics:
+      cost_class: unknown
+    tools:
+      filesystem: unknown
+      terminal: unknown
+      browser: unknown
+      git: unknown
+    data_policy:
+      max_data_sensitivity: unknown
+      training_on_inputs: unknown
+      retention: unknown
+    preferred_roles: [code-reviewer, security-reviewer]   # intended use only
+    approved_roles: []                  # set by a human at approval; empty = not selectable
+    limitations: [unknown]
+    notes: >-
+      Placeholder showing an independent review model, i.e. a model different
+      from the authoring model, as required for HIGH/CRITICAL reviews.
+    evaluation:
+      hallucination_rate: unknown
+      last_report: null
+    verification:
+      verified_by: null
+      verified_at: null
+      evidence: []
+
+  - id: local-model
+    provider: local
+    name: "Example Local Model (placeholder)"
+    version: unknown
+    status: example
+    deployment: local
+    capabilities:
+      reasoning: unknown
+      coding: unknown
+      review: unknown
+      documentation: unknown
+      instruction_following: unknown
+      tool_use: unknown
+    context:
+      size: unknown
+    performance:
+      speed: unknown           # depends on local hardware
+      quality: unknown
+      reliability: unknown
+    economics:
+      cost_class: unknown      # no per-token cost, but hardware and energy cost
+    tools:
+      filesystem: unknown
+      terminal: unknown
+      browser: unknown
+      git: unknown
+    data_policy:
+      max_data_sensitivity: unknown   # a human may approve up to `restricted` after verifying no data leaves the machine
+      training_on_inputs: unknown
+      retention: unknown
+    preferred_roles: [code-reviewer, backend-developer]   # intended use only
+    approved_roles: []                  # set by a human at approval; empty = not selectable
+    limitations:
+      - Hardware limits (memory, GPU) constrain model size, context and speed.
+      - Tool integration depends on the local runtime and IDE support.
+    notes: >-
+      Placeholder for a locally hosted model used for privacy, sensitive source
+      code, offline work or confidentiality requirements. Routing may require
+      such a model when data sensitivity demands it.
+    evaluation:
+      hallucination_rate: unknown
+      last_report: null
+    verification:
+      verified_by: null
+      verified_at: null
+      evidence: []

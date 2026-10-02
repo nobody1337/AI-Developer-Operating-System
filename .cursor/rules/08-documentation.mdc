@@ -1,0 +1,22 @@
+---
+description: Documentation governance - what to document, single source of truth, no session narratives
+globs: **/*.md, **/docs/**
+alwaysApply: false
+---
+
+# Documentation
+
+Source: `governance/policies/documentation.md`
+
+Document: architecture decisions (ADRs), relevant constraints, external APIs, security decisions,
+complex business logic, non-obvious technical decisions, how to build/test/run/release.
+
+Do not document: what the code already says, session narratives, temporary notes, undecided speculation.
+
+- One source of truth per topic; link instead of copying rule text.
+- Update docs in the same change that makes them outdated.
+- Mark unverified statements `REQUIRES VALIDATION`; never describe intended behaviour as implemented.
+- In AI-DOS docs, label status: "Governance Definition" (convention) vs "Actual Automated Orchestration"
+  (enforced by tooling) vs "Conceptual". Never claim automation that does not exist.
+
+Procedure: `skills/documentation/SKILL.md`
