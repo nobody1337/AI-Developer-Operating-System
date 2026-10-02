@@ -139,8 +139,16 @@ Negative / costs:
 
 ## Open questions
 
-- OPEN QUESTION: Initialise the git repository and make the first commit (not done by the agent).
-- OPEN QUESTION: Should consuming projects commit task state/artifacts (`.ai-dos/tasks/`) or keep them local?
-- OPEN QUESTION: Preferred integration method for projects (copy, git submodule, or reference)?
-- OPEN QUESTION: Should Cursor skill adapters be auto-invocable (current) or explicit-only (`disable-model-invocation: true`)?
-- OPEN QUESTION: Licence for AI-DOS.
+Resolved by the binding decisions of 2026-10-02
+([governance README](../README.md#binding-decisions-2026-10-02)):
+
+- Git repository and first commit → decision 1.
+- Task state and artifacts in projects → decision 3.
+- Integration method → decision 4, [ADR-001](001-embedded-project-integration.md).
+- Skill adapter invocation → decision 5 (explicit-only).
+- Licence → decision 7.
+
+## Acceptance
+
+This ADR stays `Proposed` until an independent review has been performed and a
+human sets it to `Accepted` (decision 2).

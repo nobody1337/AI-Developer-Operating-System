@@ -1,0 +1,50 @@
+# Embedded AI-DOS Manifest — schema (informal YAML description)
+# Status: Governance Definition for the format. No tool validates it today.
+# File location in a project: .ai-dos/manifest.yaml (template: templates/manifest.yaml)
+# The manifest describes the INSTALLATION only. Project identity, security and
+# model restrictions live in project-profile.yaml (one home per value).
+# Never put credentials, API keys, tokens or secrets in this file.
+# Vocabulary: governance/vocabulary.md · Versioning: integration/versioning.md
+
+schema_version: 1
+fields:
+  schema_version:         { type: integer, required: true, description: "Manifest schema version (major only). 1 in AI-DOS 0.1.x" }
+  ai_dos:
+    version:              { type: semver, required: true, description: "Project AI-DOS version: the version this instance is pinned to; basis of compatibility checks" }
+    source:
+      version:            { type: semver, required: true, description: "Source AI-DOS version: master version the managed files were copied from in the last initialize/update. Equal to ai_dos.version after a completed run; a difference means an incomplete update" }
+      ref:                { type: string, required: true, description: "Master git tag or commit if known (e.g. v0.1.0), else unknown" }
+      repository:         { type: string, required: false, description: "Descriptive name of the master only. Never an absolute path, never a URL with credentials. Informational; nothing depends on it" }
+    integrated_at:        { type: date, required: true, description: "Integration date (first initialize)" }
+    updated_at:           { type: date, required: false, description: "Date of the last completed update, or null" }
+  project_profile:        { type: path, required: true, value: project-profile.yaml, description: "Relative to .ai-dos/" }
+  integration:
+    mode:                 { type: enum, required: true, values: [embedded] }
+    root:                 { type: path, required: true, value: .ai-dos, description: "Relative to the project root" }
+    managed:              { type: list, required: true, items: "project-root-relative path or directory copied from the master (class copied/template)" }
+    generated:            { type: list, required: true, items: "project-root-relative path generated from the master (class generated); for AGENTS.md and .gitignore only the marked block" }
+    local_modifications:
+      type: list
+      required: false
+      items:
+        path:             { type: path, required: true }
+        change:           { type: string, required: true }
+        reason:           { type: string, required: true }
+        approval:         { type: string, required: true, description: "Approval Record id (APR-…) or DECISION reference" }
+  compatibility:
+    minimum_ai_dos_version: { type: semver, required: true }
+    maximum_ai_dos_version: { type: semver, required: false, description: "null = not declared: any update across a breaking boundary needs an explicit human decision" }
+  governance:
+    profile:              { type: enum, required: true, values: [standard], description: "Governance profile; standard = full AI-DOS governance of the pinned version. The Security Baseline is part of every profile" }
+  features:
+    orchestration:        { type: boolean, required: true, value: false, description: "Must be false in 0.x: no orchestrator exists" }
+    automated_routing:    { type: boolean, required: true, value: false, description: "Must be false in 0.x: model selection is manual" }
+    automated_skill_selection: { type: boolean, required: true, value: false, description: "Must be false in 0.x: skill adapters are explicit (Decision 5)" }
+  migrations:
+    type: list
+    required: false
+    items:
+      from:               { type: semver }
+      to:                 { type: semver }
+      applied_at:         { type: date }
+      record:             { type: path, description: "Update record in .ai-dos/artifacts/updates/" }

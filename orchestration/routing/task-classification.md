@@ -1,7 +1,7 @@
 # Task Classification
 
 Status: Governance Definition. Performed by the agent (or human) at the start
-of every task. Cursor command: [`/classify-task`](../../.cursor/commands/classify-task.md).
+of every task. Cursor command: `/classify-task` (`.cursor/commands/classify-task.md`).
 
 ## Dimensions
 

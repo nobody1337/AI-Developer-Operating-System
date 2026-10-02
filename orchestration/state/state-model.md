@@ -69,7 +69,8 @@ Rules:
 Schema: [task-state.schema.yaml](task-state.schema.yaml);
 example: [task-state.example.yaml](task-state.example.yaml).
 
-Proposed location in a consuming project: `.ai-dos/tasks/<task-id>/state.yaml`
-next to the task's artifacts. Inside this repository, runtime records belong in
-`orchestration/state/runtime/` (git-ignored). Whether projects commit task
-records is an open question ([ADR-000](../../governance/decisions/000-initial-ai-dos-architecture.md)).
+Location in a project with an embedded AI-DOS:
+`.ai-dos/state/tasks/<task-id>/state.yaml`; the task's artifacts are in
+`.ai-dos/artifacts/tasks/<task-id>/`. Inside the Central AI-DOS, runtime records
+belong in `orchestration/state/runtime/` (git-ignored). Which records projects
+version: [state and artifacts](../../integration/state-and-artifacts.md).

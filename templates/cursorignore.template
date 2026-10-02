@@ -45,7 +45,7 @@ service-account*.json
 
 # --- Runtime state and logs -------------------------------------------------
 orchestration/state/runtime/
-.ai-dos/runtime/
+.ai-dos/state/runtime/
 *.audit.log
 *.log
 logs/

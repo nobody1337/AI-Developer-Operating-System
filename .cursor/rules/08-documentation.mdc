@@ -1,6 +1,5 @@
 ---
-description: Documentation governance - what to document, single source of truth, no session narratives
-globs: **/*.md, **/docs/**
+description: Documentation governance - apply when writing or updating documentation (READMEs, docs/ folders, ADRs, runbooks, API docs, release notes, reports) - what to document, single source of truth, no session narratives
 alwaysApply: false
 ---
 

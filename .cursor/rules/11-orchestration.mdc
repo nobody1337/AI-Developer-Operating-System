@@ -15,6 +15,7 @@ Never start from "which model is best".
 - Model selection in Cursor is done by the human (or Cursor's own selection). You produce a capability-based
   recommendation, e.g. "a model with reasoning ≥ strong, backend ≥ good, approved for internal data".
   The registry (`orchestration/models/registry.yaml`) holds only examples; say so instead of inventing a match.
+  In a project, apply the restrictions in `.ai-dos/project-profile.yaml` (`ai.*`); they only narrow choices.
 - Routing priorities: capability > security/risk > context > tools > quality > reliability > cost > latency.
   Cost and speed never override security or quality. Confidential/restricted data may require local models.
 - Escalate on: uncertain architecture, security concern, ambiguous requirement, large refactoring,

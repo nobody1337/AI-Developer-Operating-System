@@ -1,6 +1,7 @@
 ---
 name: aidos-code-review
 description: AI-DOS code review procedure - independent review across correctness, architecture, security, tests, error handling, performance, maintainability, dependencies, breaking and unexpected changes. Use when reviewing diffs, pull requests or AI-generated changes.
+disable-model-invocation: true
 ---
 
 # AI-DOS Code Review (Cursor adapter)

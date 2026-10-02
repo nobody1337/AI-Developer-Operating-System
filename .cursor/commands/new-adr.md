@@ -3,7 +3,8 @@
 Draft a new Architecture Decision Record. The ADR is a proposal; only a human sets it to `Accepted`.
 
 1. Read `governance/architecture/architecture-governance.md` and the existing ADR index
-   (`governance/decisions/README.md` for AI-DOS itself, or the project's ADR folder).
+   (`governance/decisions/README.md` for AI-DOS itself, or the project's ADR folder:
+   `architecture.adr_path` in `.ai-dos/project-profile.yaml` in a project with an embedded AI-DOS).
 2. Determine the next ADR number; check the target file does not exist.
 3. Follow `skills/architecture/SKILL.md`: current state (facts), forces, ≥ 2 options incl. "keep current",
    evaluation, recommendation.

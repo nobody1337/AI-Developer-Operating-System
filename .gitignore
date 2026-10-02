@@ -40,7 +40,7 @@ service-account*.json
 
 # --- AI-DOS runtime data (keep README and schemas) --------------------------
 orchestration/state/runtime/
-.ai-dos/runtime/
+.ai-dos/state/runtime/
 *.audit.log
 
 # --- Logs and temporary files -----------------------------------------------

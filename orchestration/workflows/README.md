@@ -21,6 +21,11 @@ applicability by risk level: [orchestration flow](../README.md#orchestration-flo
 Domain workflows (`frontend`, `backend`, `fullstack`) refine the generic
 [feature](feature.md) workflow; they do not replace its gates.
 
+Integration workflows for AI-DOS itself (conceptual):
+[`ai-dos-initialize`](../../integration/initialize.md) and
+[`ai-dos-update`](../../integration/update.md). In a project, `.ai-dos/workflows/`
+configures the global workflows and holds project workflows.
+
 ## Creating a new workflow
 
 1. Copy [templates/workflow.md](../../templates/workflow.md).

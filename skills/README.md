@@ -26,5 +26,8 @@ other tools can load them directly.
 ## Cursor integration
 
 `.cursor/skills/aidos-<name>/SKILL.md` are thin adapters that point to these
-files; they contain no procedure content of their own. Template for new
-skills: [templates/skill.md](../templates/skill.md).
+files; they contain no procedure content of their own. They are explicit-only
+(`disable-model-invocation: true`): Cursor offers them when invoked, not by
+automatic selection. Automatic skill selection is future orchestration
+(binding decision 5 in [governance/README.md](../governance/README.md#5-skill-adapters)).
+Template for new skills: [templates/skill.md](../templates/skill.md).

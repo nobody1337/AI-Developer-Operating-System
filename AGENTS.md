@@ -69,8 +69,19 @@ approval → completion (steps by risk: [orchestration README](orchestration/REA
 
 - Roles: [orchestration/roles/](orchestration/roles/README.md) · Workflows: [orchestration/workflows/](orchestration/workflows/README.md)
 - Skills (procedures): [skills/](skills/README.md) · Templates: [templates/](templates/README.md) · Checklists: [checklists/](checklists/README.md)
+- Cursor skill adapters (`.cursor/skills/aidos-*`) are invoked explicitly; Cursor does not select them automatically.
 - Model routing is capability-based; in Cursor the human selects the model:
   [routing-policy.md](orchestration/routing/routing-policy.md)
+
+## Central and embedded AI-DOS
+
+This repository is the **Central AI-DOS** (master, version in [VERSION](VERSION)).
+Software projects contain an **Embedded AI-DOS** in `.ai-dos/` plus their own
+`.cursor/` and `AGENTS.md`, and work without access to this repository.
+Configuration has three scopes — Global → Project → Task; project rules may
+tighten, never lower, the Security Baseline
+([hierarchy](governance/principles/governance-hierarchy.md#scopes-global--project--task)).
+→ [integration/README.md](integration/README.md)
 
 Vocabulary (exact identifiers): [governance/vocabulary.md](governance/vocabulary.md).
 Changing this file, `governance/` or `.cursor/rules/` is a `CRITICAL` change.

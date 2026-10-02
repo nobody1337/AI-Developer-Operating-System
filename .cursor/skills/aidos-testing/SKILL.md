@@ -1,6 +1,7 @@
 ---
 name: aidos-testing
 description: AI-DOS testing procedure - test analysis, meaningful deterministic tests, no weakened assertions, honest test reports. Use when writing or changing tests, assessing coverage or verifying a change.
+disable-model-invocation: true
 ---
 
 # AI-DOS Testing (Cursor adapter)

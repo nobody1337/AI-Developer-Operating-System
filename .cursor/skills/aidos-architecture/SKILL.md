@@ -1,6 +1,7 @@
 ---
 name: aidos-architecture
 description: AI-DOS architecture procedure - impact analysis, options with alternatives, ADR drafting. Use when a change adds layers, patterns, frameworks, integrations, breaking API changes or shared data model changes, or when the user asks for an ADR or architecture decision.
+disable-model-invocation: true
 ---
 
 # AI-DOS Architecture (Cursor adapter)

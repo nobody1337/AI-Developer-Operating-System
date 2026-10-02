@@ -1,0 +1,60 @@
+# Embedded AI-DOS Manifest (template)
+# Copy to .ai-dos/manifest.yaml during initialization (integration/initialize.md).
+# Schema: integration/manifest.schema.yaml. Installation and provenance only;
+# project identity, security and model restrictions belong in project-profile.yaml.
+# Never put credentials, API keys, tokens or secrets in this file.
+
+schema_version: 1
+ai_dos:
+  version: "0.1.0"                 # project AI-DOS version (pinned)
+  source:
+    version: "0.1.0"               # source AI-DOS version copied in the last initialize/update
+    ref: unknown                   # master tag or commit, e.g. v0.1.0
+    repository: "Central AI-DOS"   # descriptive name only; no path, no URL with credentials
+  integrated_at: YYYY-MM-DD
+  updated_at: null
+project_profile: project-profile.yaml
+integration:
+  mode: embedded
+  root: .ai-dos
+  managed:
+    - .ai-dos/governance/
+    - .ai-dos/orchestration/
+    - .ai-dos/skills/
+    - .ai-dos/templates/
+    - .ai-dos/checklists/
+    - .ai-dos/integration/
+  generated:
+    - .ai-dos/manifest.yaml
+    - .cursor/rules/00-governance.mdc
+    - .cursor/rules/01-working-method.mdc
+    - .cursor/rules/02-code-quality.mdc
+    - .cursor/rules/03-architecture.mdc
+    - .cursor/rules/04-security.mdc
+    - .cursor/rules/05-testing.mdc
+    - .cursor/rules/06-dependencies.mdc
+    - .cursor/rules/07-git.mdc
+    - .cursor/rules/08-documentation.mdc
+    - .cursor/rules/09-ai-safety.mdc
+    - .cursor/rules/10-review.mdc
+    - .cursor/rules/11-orchestration.mdc
+    - .cursor/commands/            # AI-DOS commands only (same file names as in the master)
+    - .cursor/skills/aidos-*/      # adapters of enabled skills
+    - AGENTS.md                    # only the block between the ai-dos markers
+    - .gitignore                   # only the AI-DOS block
+  local_modifications: []
+  # example:
+  #   - path: .cursor/rules/02-code-quality.mdc
+  #     change: "globs limited to **/*.ts, **/*.html"
+  #     reason: "Angular-only project"
+  #     approval: APR-YYYYMMDD-NNN
+compatibility:
+  minimum_ai_dos_version: "0.1.0"
+  maximum_ai_dos_version: null
+governance:
+  profile: standard
+features:                          # must stay false in 0.x; nothing implements them
+  orchestration: false
+  automated_routing: false
+  automated_skill_selection: false
+migrations: []

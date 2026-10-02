@@ -1,6 +1,7 @@
 ---
 name: aidos-database
 description: AI-DOS database procedure - schema changes, expand/contract migrations with rollback, safe backfills, query review. Use when changing schemas, writing migrations or optimising queries.
+disable-model-invocation: true
 ---
 
 # AI-DOS Database (Cursor adapter)

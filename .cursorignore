@@ -1,0 +1,79 @@
+# ---------------------------------------------------------------------------
+# AI-DOS .cursorignore (template)
+# Copy this file to the repository root as `.cursorignore`.
+# (Agents cannot create `.cursorignore` themselves; Cursor protects the file.)
+#
+# Asks Cursor not to index or read these files.
+# BEST-EFFORT ONLY — NOT A SECURITY BOUNDARY. Content can still reach the AI
+# via terminal output, explicit attachment or other tools. Keep secrets out of
+# the workspace in the first place (governance/security/secrets-and-data.md).
+# ---------------------------------------------------------------------------
+
+# --- Secrets, keys, credentials ---------------------------------------------
+.env
+.env.*
+*.env
+.envrc
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.crt
+*.cer
+*.der
+*.csr
+*.kdbx
+id_rsa*
+id_ed25519*
+id_ecdsa*
+*.ppk
+credentials
+credentials.*
+*credentials*.json
+secrets.*
+*.secret
+*.secrets
+.npmrc
+.pypirc
+.netrc
+service-account*.json
+*.tfvars
+*.tfstate
+*.tfstate.*
+
+# --- Runtime state and logs -------------------------------------------------
+orchestration/state/runtime/
+.ai-dos/runtime/
+*.audit.log
+*.log
+logs/
+tmp/
+temp/
+
+# --- Large / binary / generated ---------------------------------------------
+node_modules/
+dist/
+build/
+coverage/
+.venv/
+venv/
+__pycache__/
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.rar
+*.exe
+*.dll
+*.so
+*.dylib
+*.bin
+*.iso
+*.img
+*.mp4
+*.mov
+*.sqlite
+*.db
+*.dump

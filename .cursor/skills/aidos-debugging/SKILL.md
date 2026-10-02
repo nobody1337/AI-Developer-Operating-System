@@ -1,6 +1,7 @@
 ---
 name: aidos-debugging
 description: AI-DOS debugging procedure - reproduce, form and test hypotheses, confirm root cause, regression test, minimal fix. Use when investigating bugs, failing tests, errors or unexpected behaviour.
+disable-model-invocation: true
 ---
 
 # AI-DOS Debugging (Cursor adapter)

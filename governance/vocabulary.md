@@ -71,6 +71,32 @@ Gates: `planning`, `architecture`, `implementation`, `testing`, `security`,
 Status: `passed` | `failed` | `not_run` | `not_applicable` | `waived_with_approval`.
 Defined in [quality/quality-gates.md](quality/quality-gates.md).
 
+## Approval gates and decisions
+
+Approval Record `gate`: `plan` | `implementation` | `security` | `release` |
+`protected_action` | `waiver` (approval gates are distinct from the quality
+gates above). Decision: `approved` | `rejected` | `approved_with_conditions`.
+Defined in [policies/human-approval.md](policies/human-approval.md#approval-record).
+
+## Scopes
+
+`global` | `project` | `task` — defined in
+[principles/governance-hierarchy.md](principles/governance-hierarchy.md#scopes-global--project--task).
+
+## Project integration
+
+- **Central AI-DOS** (master) and **Embedded AI-DOS** (project instance).
+- Integration mode: `embedded` (the only supported mode).
+- Governance profile: `standard` (manifest `governance.profile`; not to be
+  confused with the project profile file or capability profiles in routing).
+- File classes: `copied`, `template`, `generated`, `project_specific`,
+  `project_data`, `master_only`, `master_docs`.
+- Update resolutions: `update`, `keep_local`, `conflict`, `added`,
+  `removed_proposed`, `skip_project_owned`.
+
+Defined in [../integration/README.md](../integration/README.md) and
+[../integration/update.md](../integration/update.md#conflict-mechanism).
+
 ## Artifacts
 
 | Artifact id | Name | Template |
@@ -99,8 +125,8 @@ Defined in [ai/communication-protocol.md](ai/communication-protocol.md).
   convention. Not technically enforced.
 - **Actual Automated Orchestration** — executed or enforced by tooling. In this
   version of AI-DOS this is limited to what Cursor does natively (loading rules,
-  honouring ignore files, offering commands and skills). See the status table in
-  the [README](../README.md#what-is-active-today-vs-conceptual).
+  honouring ignore files, offering commands and explicitly invoked skills). See
+  [what Cursor can and cannot do today](../orchestration/future-orchestrator.md#what-cursor-can-and-cannot-do-today).
 - **Conceptual** — a designed format or component that nothing implements yet
   (state records, audit records, context packages, orchestrator).
 

@@ -1,6 +1,7 @@
 ---
 name: aidos-refactoring
 description: AI-DOS refactoring procedure - behaviour-preserving changes in small verified steps behind a test safety net. Use when restructuring code, removing duplication or paying down technical debt without behaviour change.
+disable-model-invocation: true
 ---
 
 # AI-DOS Refactoring (Cursor adapter)

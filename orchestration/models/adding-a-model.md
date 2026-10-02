@@ -1,7 +1,7 @@
 # How to Add a New Model
 
 Status: Governance Definition (manual process). Cursor command:
-[`/register-model`](../../.cursor/commands/register-model.md).
+`/register-model` (`.cursor/commands/register-model.md`).
 
 Adding a model **never** requires changing roles or workflows — they reference
 capabilities, not models. Only [registry.yaml](registry.yaml) changes.

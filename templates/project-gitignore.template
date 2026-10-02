@@ -1,0 +1,42 @@
+# ---------------------------------------------------------------------------
+# AI-DOS block for the .gitignore of a project with an embedded AI-DOS
+# (integration/state-and-artifacts.md). Append between the markers; the rest
+# of the project's .gitignore stays project-owned.
+# ---------------------------------------------------------------------------
+# ai-dos:begin
+# Runtime data without long-term value: logs, caches, temporary context
+# packages, update staging, large intermediate artifacts.
+.ai-dos/state/runtime/
+*.audit.log
+
+# Secrets and credentials (keep if the project does not already ignore them)
+.env
+.env.*
+!.env.example
+*.env
+.envrc
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.kdbx
+id_rsa*
+id_ed25519*
+id_ecdsa*
+*.ppk
+credentials
+credentials.*
+*credentials*.json
+secrets.*
+*.secret
+*.secrets
+.npmrc
+.pypirc
+.netrc
+service-account*.json
+*.tfvars
+*.tfstate
+*.tfstate.*
+# ai-dos:end

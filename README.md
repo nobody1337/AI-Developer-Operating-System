@@ -5,8 +5,11 @@ take part in software development**: governance, roles, skills, workflows,
 model registry, capability-based routing, human approval gates and (conceptual)
 orchestration. Cursor is the primary integration layer, not the architecture.
 
-> Version 0 — documentation only (Markdown, YAML, MDC). No application code,
-> no packages, no orchestrator. See [what is active today](#what-is-active-today-vs-conceptual).
+> Version 0.1.0 ([VERSION](VERSION), [CHANGELOG](CHANGELOG.md)) — documentation only
+> (Markdown, YAML, MDC). No application code, no packages, no orchestrator. See
+> [what Cursor executes today](#what-cursor-executes-today-vs-convention-vs-future-automation).
+> This repository is the **Central AI-DOS** (master); projects contain an
+> **Embedded AI-DOS** ([project integration](#integrating-ai-dos-into-a-software-project)).
 
 ## Why AI-DOS exists
 
@@ -33,7 +36,7 @@ Governance | Roles | Skills | Workflows | Model Registry | Model Routing | Orche
 - **Workflows** ([orchestration/workflows/](orchestration/workflows/README.md)) — sequences of roles and gates; reference capabilities, never model names.
 - **Model registry and routing** ([orchestration/models/](orchestration/models/README.md), [orchestration/routing/](orchestration/routing/routing-policy.md)) — capabilities with evidence; selection by capability, risk, context, tools, quality, reliability, cost, latency.
 - **Orchestration** ([orchestration/](orchestration/README.md)) — the flow, state, audit, handoffs; manual today, automated later.
-- **Project integration** — `.cursor/` (rules, commands, skill adapters), [AGENTS.md](AGENTS.md), [project profile](templates/project-profile.yaml).
+- **Project integration** ([integration/](integration/README.md)) — Central AI-DOS → Embedded AI-DOS in each project (`.ai-dos/`, generated `.cursor/` files, `AGENTS.md`); manifest, project profile, versioning, initialize and update workflows.
 
 Rationale: [ADR-000](governance/decisions/000-initial-ai-dos-architecture.md).
 
@@ -43,7 +46,8 @@ Rationale: [ADR-000](governance/decisions/000-initial-ai-dos-architecture.md).
 /
 ├── README.md                 this file
 ├── AGENTS.md                 compact entry point for any AI agent
-├── .gitignore  .gitattributes  .editorconfig
+├── VERSION  CHANGELOG.md     AI-DOS version and change history
+├── .gitignore  .gitattributes  .editorconfig  .cursorignore
 ├── .cursor/
 │   ├── rules/                12 small .mdc rules (summaries + links)
 │   ├── commands/             slash commands (/classify-task, /plan, /review, …)
@@ -65,8 +69,9 @@ Rationale: [ADR-000](governance/decisions/000-initial-ai-dos-architecture.md).
 │   ├── workflows/            feature, bugfix, refactoring, frontend, backend, fullstack, security, testing, release
 │   ├── state/                state model, audit model, context packages, handoffs (conceptual schemas)
 │   └── future-orchestrator.md
+├── integration/              central vs embedded AI-DOS, .ai-dos/ layout, manifest + profile schemas, versioning, initialize/update
 ├── skills/                   11 tool-agnostic skills (SKILL.md each)
-├── templates/                artifact, request and extension templates
+├── templates/                artifact, request, extension and project integration templates
 └── checklists/               implementation, architecture, security, code review, AI-generated code, dependency, release
 ```
 
@@ -179,25 +184,36 @@ Workflow changes are governance changes.
 
 ## Integrating AI-DOS into a software project
 
-| Option | How | Trade-off |
-|---|---|---|
-| **Copy (vendoring)** | Copy `governance/`, `orchestration/`, `skills/`, `templates/`, `checklists/` into `ai-dos/` in the project; copy `.cursor/` and `AGENTS.md` to the project root | Simple; updates are manual |
-| **Git submodule** | Add AI-DOS as submodule at `ai-dos/`; copy `.cursor/rules`, `.cursor/commands`, `.cursor/skills` to the project root (Cursor loads them from the workspace `.cursor/`) | Versioned updates; rule copies still needed |
-| **Reference only** | Project `AGENTS.md` links to a published AI-DOS location | Lightweight; agents must fetch the documents |
+Embedded, project-local integration is the AI-DOS standard
+([decision 4](governance/README.md#4-project-integration),
+[ADR-001](governance/decisions/001-embedded-project-integration.md)). Each
+project owns its **Embedded AI-DOS**:
 
-Steps:
+```text
+<project>/
+├── .ai-dos/      manifest.yaml, project-profile.yaml, governance/, orchestration/, skills/,
+│                 templates/, checklists/, integration/ (managed copies), workflows/, local/, state/, artifacts/
+├── .cursor/      rules/, commands/, skills/ (generated from this repository + project files)
+├── AGENTS.md     project entry point
+└── src/, tests/, …
+```
 
-1. Add `ai-dos.project.yaml` from [templates/project-profile.yaml](templates/project-profile.yaml)
-   (owner, default data sensitivity, risk overrides, approved models, real build/test commands).
-2. **Adjust paths.** Rules and commands reference AI-DOS files repository-root-relative
-   (e.g. `governance/policies/risk-classification.md`). When AI-DOS lives under
-   `ai-dos/`, prefix these paths (`ai-dos/governance/…`) in the copied `.cursor/` files and `AGENTS.md`.
-3. Write a short project `AGENTS.md` that states project rules and links to AI-DOS.
-4. **Project overrides rank higher** (rank 5) than AI-DOS (rank 6): projects may
-   tighten rules or raise risk for paths (e.g. `src/billing/** → CRITICAL`), but
-   may not weaken the [Security Baseline](governance/principles/governance-hierarchy.md#security-baseline-cannot-be-lowered-by-project-or-company-rules).
-5. Back governance with real controls where available: branch protection,
-   required reviewers, CI, deployment permissions, Cursor command-approval settings.
+Opening the project in Cursor is enough: `.ai-dos/`, `.cursor/` and `AGENTS.md`
+work without this repository — no absolute paths, no dependency on the master
+location. The Central AI-DOS is needed only for new projects, updates,
+templates, AI-DOS evolution and migrations.
+
+- Structure, file classes, path convention, provenance: [integration/README.md](integration/README.md)
+- Manifest and project profile: [manifest schema](integration/manifest.schema.yaml), [profile schema](integration/project-profile.schema.yaml)
+- Workflows (conceptual, performed manually today): [initialize](integration/initialize.md), [update](integration/update.md)
+- Versioning: [integration/versioning.md](integration/versioning.md) · state and artifacts: [integration/state-and-artifacts.md](integration/state-and-artifacts.md)
+
+Project rules rank higher (rank 5) than AI-DOS (rank 6): projects may tighten
+rules or raise risk for paths (e.g. `src/billing/** → CRITICAL`), but may not
+weaken the Security Baseline
+([project-level overrides](governance/principles/governance-hierarchy.md#project-level-overrides)).
+Back governance with real controls where available: branch protection,
+required reviewers, CI, deployment permissions, Cursor command-approval settings.
 
 ## Cursor integration
 
@@ -211,7 +227,7 @@ Steps:
 | `05-testing.mdc` | globs: test files | Testing governance |
 | `06-dependencies.mdc` | globs: dependency manifests | Dependency governance |
 | `07-git.mdc` | agent-requested | Git governance |
-| `08-documentation.mdc` | globs: Markdown/docs | Documentation governance |
+| `08-documentation.mdc` | agent-requested (description) | Documentation governance ([decision 6](governance/README.md#6-documentation-rule)) |
 | `09-ai-safety.mdc` | always | Honesty, communication protocol |
 | `10-review.mdc` | agent-requested | Review process |
 | `11-orchestration.mdc` | agent-requested (description) | Routing, roles, escalation, handoffs |
@@ -226,28 +242,51 @@ Commands (`.cursor/commands/`): `/classify-task`, `/risk-assessment`, `/plan`,
 `/request-approval`, `/handoff`, `/done-check`.
 
 Skills (`.cursor/skills/aidos-*`): thin adapters that point to `skills/*/SKILL.md`.
-They are auto-discoverable by description (no `disable-model-invocation`).
+They are explicit-only (`disable-model-invocation: true`,
+[decision 5](governance/README.md#5-skill-adapters)); automatic skill selection
+is future orchestration.
+
+In a project, these files are generated with the prefix `.ai-dos/` in every
+AI-DOS path ([path convention](integration/README.md#path-convention)).
 
 `.cursorignore`: Cursor does not allow agents to create this file. Copy
 [templates/cursorignore.template](templates/cursorignore.template) to
 `.cursorignore` manually. It is best-effort, not a security boundary.
 
-## What is active today vs conceptual
+## What Cursor executes today vs convention vs future automation
 
-| Component | Status | Notes |
-|---|---|---|
-| Cursor rules loading (`.cursor/rules/*.mdc`) | **Active — native Cursor** | always / glob / agent-requested as configured |
-| `AGENTS.md` | **Active where the tool supports it** | Cursor and several agents read it (REQUIRES VALIDATION per tool/version) |
-| `.gitignore` | **Active — native git** | Once the repository is initialised |
-| `.cursorignore` | **Active, best-effort** — after manual creation | Not a security boundary |
-| Cursor commands (`.cursor/commands`) | **Active when invoked** | The agent follows the linked documents by convention |
-| Cursor skills (`.cursor/skills`) | **Active when invoked/discovered** | Adapters only |
-| Governance, roles, workflows, checklists, templates | Governance Definition | Followed by convention; not enforced |
-| Risk classification, approval gates, quality gates | Governance Definition | Real enforcement only via external tooling (branch protection, CI, permissions) |
-| Model registry | Data, examples only | No verified entries |
-| Model routing / selection | **Manual** | Agent recommends; human selects model in the IDE |
-| Task state, audit records, context packages | **Conceptual** | Schemas only; may be used manually |
-| Orchestrator | **Conceptual** | [future-orchestrator.md](orchestration/future-orchestrator.md) |
+### What Cursor executes today
+
+| Component | Behaviour |
+|---|---|
+| Cursor rules (`.cursor/rules/*.mdc`) | Loaded natively: always / glob / agent-requested as configured |
+| `AGENTS.md` | Read where the tool supports it (REQUIRES VALIDATION per tool/version) |
+| `.cursorignore` | Honoured best-effort; not a security boundary |
+| Cursor commands (`.cursor/commands`) | Offered when invoked |
+| Cursor skill adapters (`.cursor/skills/aidos-*`) | Offered when invoked explicitly (REQUIRES VALIDATION of `disable-model-invocation` in your version) |
+| `.gitignore` | Applied natively by git |
+
+### What AI-DOS defines as a convention
+
+| Component | Status |
+|---|---|
+| Governance, roles, workflows, skills, checklists, templates | Governance Definition — followed by agents and humans; not enforced |
+| Risk classification, approval gates, quality gates | Governance Definition — real enforcement only via external tooling (branch protection, CI, permissions) |
+| Model registry and routing | Data (examples only) and manual recommendation; the human selects the model in the IDE |
+| Embedded AI-DOS: manifest, project profile, file classes, path convention | Governance Definition — agents read the files; no tool parses them |
+| Initialize and update AI-DOS in a project | Performed manually following [initialize](integration/initialize.md) / [update](integration/update.md) |
+| Task state, audit records, context packages | Conceptual schemas; may be used manually |
+
+### What is future automation
+
+| Component | Reference |
+|---|---|
+| Orchestrator (classification, routing, agent execution, gates, approval service, policy engine) | [future-orchestrator.md](orchestration/future-orchestrator.md) |
+| Automatic skill selection by task type, role, capabilities, risk, project profile | [decision 5](governance/README.md#5-skill-adapters) |
+| Integrator for initialize/update with drift detection and three-way comparison | [update](integration/update.md) |
+| Validators for manifest, profile, artifacts and state files | [future-orchestrator.md](orchestration/future-orchestrator.md#possible-incremental-path) |
+
+None of this exists as code; nothing in this repository executes it.
 
 ## Deviations from the requested target structure
 
@@ -263,14 +302,29 @@ They are auto-discoverable by description (no `disable-model-invocation`).
 | `.cursorignore` delivered as `templates/cursorignore.template` | Cursor blocks agents from writing `.cursorignore` |
 | Added `.gitattributes` | Normalises LF line endings despite `core.autocrlf=true` on Windows |
 | Cursor skill adapters prefixed `aidos-` | Avoid name collisions with other skills |
+| Manifest holds installation, provenance, compatibility and features only; project identity, security and model restrictions live only in `project-profile.yaml` | One home per value (deviation from the original manifest example) |
+| Integer `schema_version` (e.g. `1`) instead of `"1.0"` | Consistent with all existing schemas |
+| Profile key `security.data_sensitivity` instead of `data_classification` | Matches the vocabulary term "data sensitivity" |
+| Project-owned `.ai-dos/workflows/` and `.ai-dos/local/`; global workflows stay in `orchestration/workflows/` | Managed copies mirror the master so links stay valid; ownership per directory keeps updates safe |
+| Added `integration/`, `VERSION`, `CHANGELOG.md` | Project integration layer, single version source, change history |
+| `governance/decisions/` and `governance/reviews/` are copied read-only into projects | Keeps links in copied governance valid; provenance |
 
 ## Self-review
 
-The initial consistency and quality review is documented in
-[governance/reviews/0001-initial-self-review.md](governance/reviews/0001-initial-self-review.md).
+Reviews: [0001 initial self-review](governance/reviews/0001-initial-self-review.md),
+[0002 embedded integration self-review](governance/reviews/0002-embedded-integration-self-review.md).
+Neither is independent; see [decision 2](governance/README.md#2-adr-000).
 
-## Status and open questions
+## Status and decisions
 
-This repository is not yet a git repository. Open questions (git
-initialisation, integration method, committing task state, licence, skill
-invocation mode) are listed in [ADR-000](governance/decisions/000-initial-ai-dos-architecture.md#open-questions).
+The repository is a git repository; initialization and the baseline commit
+were human actions ([decision 1](governance/README.md#1-git)). AI-DOS does not
+depend on any remote. ADR-000 and ADR-001 are `Proposed` until an independent
+review. All binding decisions: [governance/README.md](governance/README.md#binding-decisions-2026-10-02).
+
+## License
+
+License status: Not licensed for redistribution.
+
+The repository is hosted publicly; this makes it visible but does not grant a
+license ([decision 7](governance/README.md#7-license)).

@@ -14,5 +14,8 @@ would maintain automatically. Today they can be used manually.
 | [context-package.schema.yaml](context-package.schema.yaml) | Context package schema + example |
 | [handoffs.md](handoffs.md) | Artifact chain and common artifact header |
 
-Runtime data (real task records) must not be committed in this repository:
-`orchestration/state/runtime/` is git-ignored and cursor-ignored.
+Runtime data (real task records) must not be committed in the Central AI-DOS:
+`orchestration/state/runtime/` is git-ignored and cursor-ignored. In a project
+with an embedded AI-DOS, task records and artifacts live in `.ai-dos/state/`
+and `.ai-dos/artifacts/`; what is versioned is defined in
+[state and artifacts](../../integration/state-and-artifacts.md).

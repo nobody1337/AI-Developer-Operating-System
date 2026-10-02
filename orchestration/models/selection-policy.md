@@ -37,6 +37,10 @@ A model is eligible only if **all** hold:
 6. Verified context size suffices, if the task needs large context.
 7. For independent review: not the same model (and not the same agent session)
    that authored the change.
+8. In a project with an embedded AI-DOS: allowed by the project profile —
+   listed in `ai.allowed_models` if that list is not empty, and not listed in
+   `ai.forbidden_models`. Project restrictions only narrow eligibility; they
+   never make a model eligible ([project profile schema](../../integration/project-profile.schema.yaml)).
 
 ## Step 2 — Ranking (soft criteria, in order)
 
@@ -49,7 +53,8 @@ A model is eligible only if **all** hold:
 7. Cost (`economics.cost_class`)
 8. Latency (`performance.speed`)
 
-`preferred` ranks before `approved` only when the criteria above are equal.
+`preferred` ranks before `approved` only when the criteria above are equal;
+after that, a project's `ai.preferred_models` breaks remaining ties.
 **Cost and speed never override security or quality requirements.**
 
 ## Step 3 — Result

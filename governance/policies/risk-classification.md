@@ -52,3 +52,6 @@ Gate definitions: [quality gates](../quality/quality-gates.md).
 | Write DB migration that drops a column | `CRITICAL` | Irreversible data operation |
 | Rotate API keys | `CRITICAL` | Secrets |
 | Edit `.cursor/rules` or `governance/` | `CRITICAL` | Changes to governance itself |
+| Initialize or update an embedded AI-DOS; edit `.ai-dos/` managed or generated files, `manifest.yaml` or `.ai-dos/local/` | `CRITICAL` | Changes to governance itself ([project integration](../../integration/README.md#file-classification)) |
+| Edit `security`, `ai` or `local_rules` in `.ai-dos/project-profile.yaml` | `CRITICAL` | Project rules (data sensitivity, risk overrides, role/model restrictions, active local rules) |
+| Edit `technology`, `tooling` or `repository` in the project profile | `LOW` | Descriptive project data |

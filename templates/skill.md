@@ -9,7 +9,8 @@ description: <Third-person description of WHAT the procedure does and WHEN to us
      A skill describes HOW work is done; it does not define responsibility
      (that is a role) and grants no permissions.
      For Cursor, add a thin adapter in .cursor/skills/aidos-<skill-name>/SKILL.md
-     that points here. -->
+     that points here, with `disable-model-invocation: true` (explicit-only,
+     binding decision 5 in governance/README.md). -->
 
 ## Purpose
 

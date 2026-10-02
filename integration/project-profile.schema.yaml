@@ -1,0 +1,49 @@
+# Project Profile — schema (informal YAML description)
+# Status: Governance Definition for the format. No tool validates it today;
+# agents read the profile by convention.
+# File location in a project: .ai-dos/project-profile.yaml (template: templates/project-profile.yaml)
+# Project rules rank 5 in the governance hierarchy. They may tighten AI-DOS
+# defaults but never weaken the Security Baseline
+# (governance/principles/governance-hierarchy.md#project-level-overrides).
+# Changes to `security`, `ai` and `local_rules` are CRITICAL governance changes.
+# Never put credentials, API keys, tokens or secrets in this file.
+
+schema_version: 1
+fields:
+  schema_version:       { type: integer, required: true, description: "Profile schema version (major only). 1 in AI-DOS 0.1.x" }
+  project:
+    name:               { type: string, required: true }
+    type:               { type: string, required: true, description: "e.g. web-application, service, library, cli, mobile-app, other" }
+    owner:              { type: string, required: true, description: "Human owner or team" }
+    description:        { type: string, required: false }
+  technology:
+    languages:          { type: list, items: string }
+    frameworks:         { type: list, items: { name: string, version: "version from the project's manifests, or unknown" } }
+    runtimes:           { type: list, items: string }
+    package_managers:   { type: list, items: string }
+  architecture:
+    style:              { type: string, description: "e.g. layered, modular-monolith, microservices, unknown" }
+    important_modules:  { type: list, items: { path: string, purpose: string } }
+    adr_path:           { type: path, description: "Where project ADRs live; default .ai-dos/artifacts/decisions" }
+  tooling:              # real project commands; unknown if not detected — agents never guess commands
+    build:              { type: string }
+    test:               { type: string }
+    lint:               { type: string }
+    format:             { type: string }
+  repository:
+    default_branch:     { type: string }
+  security:
+    data_sensitivity:   { type: enum, required: true, values: [public, internal, confidential, restricted], description: "Default data sensitivity of the project; tasks may classify higher, never lower without human acknowledgement" }
+    restrictions:       { type: list, items: string, description: "Additional, stricter project restrictions" }
+    risk_overrides:     { type: list, items: { match: "path glob", minimum_risk: "LOW|MEDIUM|HIGH|CRITICAL" }, description: "May only RAISE risk" }
+  ai:
+    allowed_roles:      { type: list, items: "base role id", description: "Empty = all base roles. Must not exclude code-reviewer or security-reviewer (required by gates)" }
+    enabled_skills:     { type: list, items: "skill name", description: "Skills whose Cursor adapters are generated. Empty = all" }
+    required_skills:    { type: list, items: "skill name", description: "Skills that must be applied where relevant in this project" }
+    enabled_workflows:  { type: list, items: "workflow id", description: "Global workflows in use. Empty = all. Risk gates apply regardless of workflow selection" }
+    additional_workflows: { type: list, items: "path under .ai-dos/workflows/", description: "Project workflows; may add gates, never remove them" }
+    allowed_models:     { type: list, items: "registry id", description: "Restriction filter only. Empty = no project restriction; registry eligibility rules still apply" }
+    preferred_models:   { type: list, items: "registry id", description: "Tie-breaker among eligible models only; never makes a model eligible; unrelated to the lifecycle status preferred" }
+    forbidden_models:   { type: list, items: "registry id", description: "Never recommended in this project" }
+  approvers:            { type: list, items: "human name or handle", description: "Informational; real enforcement via repository tooling" }
+  local_rules:          { type: list, items: "path under .ai-dos/local/rules/" }

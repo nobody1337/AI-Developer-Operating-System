@@ -1,6 +1,7 @@
 ---
 name: aidos-documentation
 description: AI-DOS documentation procedure - decide what to document, single source of truth, verified facts, no session narratives. Use when creating or updating READMEs, ADRs, API docs, runbooks, release notes or reports.
+disable-model-invocation: true
 ---
 
 # AI-DOS Documentation (Cursor adapter)

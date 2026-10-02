@@ -1,41 +1,59 @@
 # AI-DOS Project Profile (template)
 # Status: Governance Definition / configuration convention. No tool reads this
-# file automatically today; agents read it by convention (referenced from the
-# project's AGENTS.md). Place it at the root of a consuming project as
-# `ai-dos.project.yaml`.
+# file automatically today; agents read it by convention.
+# Copy to .ai-dos/project-profile.yaml during initialization
+# (integration/initialize.md). Schema: integration/project-profile.schema.yaml.
 #
 # Project rules rank 5 in the governance hierarchy (above AI-DOS governance,
 # rank 6). They may add or tighten rules but MUST NOT weaken the Security
-# Baseline (governance/principles/governance-hierarchy.md).
+# Baseline (governance/principles/governance-hierarchy.md#project-level-overrides).
+# Changes to `security`, `ai` and `local_rules` are CRITICAL governance changes.
+# Never put credentials, API keys, tokens or secrets in this file.
 
 schema_version: 1
 project:
   name: <project name>
+  type: <web-application | service | library | cli | mobile-app | other>
   owner: <human owner / team>
-  ai_dos_path: ai-dos            # where AI-DOS lives in this repo (copy or submodule); "." if this IS the AI-DOS repo
-  ai_dos_version: <commit or tag>
+  description: <one sentence>
 
-defaults:
+technology:
+  languages: []                  # e.g. [typescript]
+  frameworks: []                 # e.g. [{ name: angular, version: unknown }]
+  runtimes: []                   # e.g. [node]
+  package_managers: []           # e.g. [npm]
+
+architecture:
+  style: unknown
+  important_modules: []          # e.g. [{ path: src/app/core, purpose: "auth and HTTP" }]
+  adr_path: .ai-dos/artifacts/decisions
+
+tooling:                         # real project commands; unknown if not detected
+  build: unknown
+  test: unknown
+  lint: unknown
+  format: unknown
+
+repository:
+  default_branch: main
+
+security:
   data_sensitivity: internal     # public | internal | confidential | restricted
+  restrictions: []               # stricter project restrictions only
+  risk_overrides: []             # may only RAISE risk
+  # example:
+  #   - match: "src/billing/**"
+  #     minimum_risk: CRITICAL
 
-risk_overrides:                  # additional mappings; may only RAISE risk
-  - match: "src/billing/**"
-    minimum_risk: CRITICAL
-  - match: "src/auth/**"
-    minimum_risk: HIGH
+ai:
+  allowed_roles: []              # empty = all base roles; never exclude code-reviewer or security-reviewer
+  enabled_skills: []             # empty = all skills get Cursor adapters
+  required_skills: []            # e.g. [security]
+  enabled_workflows: []          # empty = all global workflows
+  additional_workflows: []       # paths under .ai-dos/workflows/
+  allowed_models: []             # registry ids; restriction filter only
+  preferred_models: []           # tie-breaker among eligible models only
+  forbidden_models: []           # registry ids never recommended here
 
-approved_models: []              # registry ids approved for this project (subset of the AI-DOS registry or a project registry)
-# example:
-#   - id: <registry id>
-#     roles: [frontend-developer]
-#     max_data_sensitivity: internal
-
-commands:                        # the real project commands agents should use
-  build: <e.g. npm run build>
-  test: <e.g. npm test -- --watch=false>
-  lint: <e.g. npm run lint>
-
-approvers:                       # who may approve gates (informational; real enforcement via repo tooling)
-  - <name or handle>
-
-additional_rules: []             # paths to project-specific rule documents
+approvers: []                    # informational; real enforcement via repository tooling
+local_rules: []                  # paths under .ai-dos/local/rules/
