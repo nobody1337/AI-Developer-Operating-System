@@ -14,6 +14,7 @@ Only a human sets `Accepted`.
 |---|---|---|---|
 | [000](000-initial-ai-dos-architecture.md) | Initial AI-DOS architecture | Proposed | 2026-10-02 |
 | [001](001-embedded-project-integration.md) | Embedded project-local AI-DOS integration | Proposed | 2026-10-02 |
+| [002](002-multi-tool-adapters.md) | Multi-tool adapters and installer for embedded AI-DOS | Proposed | 2026-11-01 |
 
 Self-reviews of governance are kept separately in `../reviews/`:
 [0001](../reviews/0001-initial-self-review.md),

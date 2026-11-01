@@ -38,7 +38,7 @@ fields:
     risk_overrides:     { type: list, items: { match: "path glob", minimum_risk: "LOW|MEDIUM|HIGH|CRITICAL" }, description: "May only RAISE risk" }
   ai:
     allowed_roles:      { type: list, items: "base role id", description: "Empty = all base roles. Must not exclude code-reviewer or security-reviewer (required by gates)" }
-    enabled_skills:     { type: list, items: "skill name", description: "Skills whose Cursor adapters are generated. Empty = all" }
+    enabled_skills:     { type: list, items: "skill name", description: "Skills whose tool adapters (.agents/skills/aidos-*, .claude/commands/aidos-*) install.ps1 generates. Empty = all. install.ps1 reads inline [a, b] or block '- a' lists" }
     required_skills:    { type: list, items: "skill name", description: "Skills that must be applied where relevant in this project" }
     enabled_workflows:  { type: list, items: "workflow id", description: "Global workflows in use. Empty = all. Risk gates apply regardless of workflow selection" }
     additional_workflows: { type: list, items: "path under .ai-dos/workflows/", description: "Project workflows; may add gates, never remove them" }

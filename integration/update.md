@@ -1,11 +1,22 @@
 # Workflow: Update AI-DOS in a Project (`ai-dos-update`)
 
-Status: **Conceptual.** Specification of a future workflow. No CLI, script or
-orchestrator implements it. Today a human performs these steps, optionally
-assisted by an agent. An update is a `CRITICAL` governance change: it needs
-explicit human approval ([human approval](../governance/policies/human-approval.md)).
+Status: **Partly automated.** `.ai-dos/install.ps1 -Update` implements steps 2
+(version range check), 5, 6 and 9 for generated files and blocks, and the
+version lines of step 11; the human performs the other steps, optionally
+assisted by an agent. Managed copies are replaced by the human copy step, not
+by a three-way comparison (see below). An update is a `CRITICAL` governance
+change: it needs explicit human approval ([human approval](../governance/policies/human-approval.md)).
 
 **An update never silently overwrites local project rules.**
+
+Quick path (after steps 1–4, on a separate branch):
+
+```text
+robocopy <path-to-central-ai-dos> .ai-dos /E /XD .git   # merge copy; never /MIR (would delete project-owned files)
+.\.ai-dos\install.ps1 -Update -WhatIf                     # review statuses
+.\.ai-dos\install.ps1 -Update
+git diff                                                  # review every change before merging
+```
 
 ## Input
 
@@ -56,10 +67,34 @@ version, regenerated with the profile).
 | `removed_proposed` | file removed in target | Never delete automatically; propose removal; human decides |
 | `skip_project_owned` | project-specific or project data | Not touched |
 
+### What install.ps1 implements
+
+For **generated files and blocks**, install.ps1 replaces the base comparison by
+a provenance hash stored in the file (marker line) or block (`ai-dos:hash`
+line): "local = base" means the content still matches its stored hash.
+
+| Resolution | install.ps1 status |
+|---|---|
+| `update` | `outdated` without `-Update`; `updated` with `-Update` |
+| `keep_local` | `keep_local` for paths listed in `integration.local_modifications` |
+| `conflict` | `conflict`: no provenance marker or hash line, or content edited since generation; never written |
+| `added` | `created` (file) or `inserted` (block into an existing file) |
+| `removed_proposed` | `removed_proposed`: generated file no longer expected (source removed or skill disabled), and legacy `.cursor/skills/aidos-*`; never deleted |
+| `skip_project_owned` | not touched (project sections of entry files, profile, `.claude/settings.json` after creation, `.ai-dos/local/**`, state, artifacts) |
+
+For **managed copies** (`.ai-dos/governance/`, `orchestration/`, …) the human
+copy step overwrites them with the target version; no three-way comparison
+exists. Review them with `git diff` before merging; local edits to managed
+copies are not allowed ([file classification](README.md#file-classification)).
+Files removed from the master stay in `.ai-dos/` after a merge copy; compare
+with the changelog and remove them by human decision.
+
 Rules:
 
 - Undeclared changes to managed or generated files are always `conflict` and
-  reported as `RISK:` (possible tampering).
+  reported as `RISK:` (possible tampering). For managed copies this is today
+  only detectable by the human `git diff` review, because the copy step
+  overwrites them.
 - If the base is not available (no master tag, no git history), every file
   that differs from the target is a `conflict`.
 - A local version that weakens the Security Baseline cannot be kept; the human

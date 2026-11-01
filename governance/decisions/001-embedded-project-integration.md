@@ -3,6 +3,7 @@
 - **Status:** Proposed <!-- drafted by an AI agent; only a human sets Accepted -->
 - **Date:** 2026-10-02
 - **Deciders:** Axel (owner) — binding decisions taken 2026-10-02; acceptance of this ADR pending independent review
+- **Extended by:** [ADR-002](002-multi-tool-adapters.md) (2026-11-01): adapters for Claude Code, OpenAI Codex and GitHub Copilot, installer `install.ps1`; project skill adapters move from `.cursor/skills/` to `.agents/skills/`
 
 ## Context
 

@@ -52,6 +52,12 @@ logs/
 tmp/
 temp/
 
+# --- Embedded AI-DOS: inactive master entry files (generator sources only) --
+# The project entry points are the generated files in the project root.
+.ai-dos/.cursor/
+.ai-dos/AGENTS.md
+.ai-dos/CLAUDE.md
+
 # --- Large / binary / generated ---------------------------------------------
 node_modules/
 dist/

@@ -47,7 +47,7 @@ security:
 
 ai:
   allowed_roles: []              # empty = all base roles; never exclude code-reviewer or security-reviewer
-  enabled_skills: []             # empty = all skills get Cursor adapters
+  enabled_skills: []             # empty = all skills get tool adapters (install.ps1)
   required_skills: []            # e.g. [security]
   enabled_workflows: []          # empty = all global workflows
   additional_workflows: []       # paths under .ai-dos/workflows/

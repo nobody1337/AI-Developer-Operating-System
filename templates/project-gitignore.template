@@ -1,13 +1,18 @@
 # ---------------------------------------------------------------------------
 # AI-DOS block for the .gitignore of a project with an embedded AI-DOS
-# (integration/state-and-artifacts.md). Append between the markers; the rest
-# of the project's .gitignore stays project-owned.
+# (integration/state-and-artifacts.md). .ai-dos/install.ps1 inserts the lines
+# between the markers into the project's .gitignore; the rest of the file
+# stays project-owned.
 # ---------------------------------------------------------------------------
 # ai-dos:begin
 # Runtime data without long-term value: logs, caches, temporary context
 # packages, update staging, large intermediate artifacts.
 .ai-dos/state/runtime/
 *.audit.log
+
+# Personal, uncommitted AI tool configuration (Claude Code)
+.claude/settings.local.json
+CLAUDE.local.md
 
 # Secrets and credentials (keep if the project does not already ignore them)
 .env

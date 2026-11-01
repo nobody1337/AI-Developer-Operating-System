@@ -1,0 +1,50 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(*.env)",
+      "Read(.envrc)",
+      "Read(*.pem)",
+      "Read(*.key)",
+      "Read(*.p12)",
+      "Read(*.pfx)",
+      "Read(*.jks)",
+      "Read(*.keystore)",
+      "Read(*.kdbx)",
+      "Read(id_rsa*)",
+      "Read(id_ed25519*)",
+      "Read(id_ecdsa*)",
+      "Read(*.ppk)",
+      "Read(credentials)",
+      "Read(credentials.*)",
+      "Read(*credentials*.json)",
+      "Read(secrets.*)",
+      "Read(*.secret)",
+      "Read(*.secrets)",
+      "Read(.npmrc)",
+      "Read(.pypirc)",
+      "Read(.netrc)",
+      "Read(service-account*.json)",
+      "Read(*.tfvars)",
+      "Read(*.tfstate)",
+      "Read(*.tfstate.*)"
+    ],
+    "ask": [
+      "Edit(.ai-dos/governance/**)",
+      "Edit(.ai-dos/orchestration/**)",
+      "Edit(.ai-dos/skills/**)",
+      "Edit(.ai-dos/templates/**)",
+      "Edit(.ai-dos/checklists/**)",
+      "Edit(.ai-dos/integration/**)",
+      "Edit(.ai-dos/local/**)",
+      "Edit(.ai-dos/manifest.yaml)",
+      "Edit(.ai-dos/project-profile.yaml)",
+      "Edit(.claude/settings.json)"
+    ]
+  },
+  "claudeMdExcludes": [
+    "**/.ai-dos/CLAUDE.md",
+    "**/.ai-dos/AGENTS.md"
+  ]
+}
