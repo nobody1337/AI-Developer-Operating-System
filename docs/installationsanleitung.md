@@ -77,13 +77,13 @@ diesen `origin`:
 git clone https://github.com/nobody1337/AI-Developer-Operating-System.git
 ```
 
-[CHANGELOG.md](../CHANGELOG.md) führt `0.1.0` als **unreleased**.
+[CHANGELOG.md](../CHANGELOG.md) führt `0.1.0` als erste freigegebene
+Version (2026-11-01).
 [integration/versioning.md](../integration/versioning.md) sieht Git-Tags
-`v<version>` vor, gesetzt von einem Menschen. In dieser Arbeitskopie listet
-`git tag` keine Tags. Für ein Embedded AI-DOS ist der Eingang laut
-Initialize-Workflow eine freigegebene Version (`VERSION`, Tag sofern vorhanden).
-Ohne Tag ist die genaue Quelle ein Commit, den ein Mensch benennt.
-`REQUIRES VALIDATION`, sobald ein Tag existiert.
+`v<version>` vor, gesetzt von einem Menschen. Für `0.1.0` ist das der Tag
+`v0.1.0` (auf Axels ausdrückliche Anweisung erstellt). Für ein Embedded AI-DOS ist der Eingang laut
+Initialize-Workflow eine freigegebene Version (`VERSION` plus Tag, z. B.
+`git clone --branch v0.1.0 …`).
 
 Nach dem Klonen den Ordner in Cursor (oder Claude Code, Codex, VS Code mit
 Copilot) als Workspace öffnen. Für den Master selbst gibt es keinen

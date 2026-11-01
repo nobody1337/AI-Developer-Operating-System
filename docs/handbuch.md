@@ -50,7 +50,7 @@ Englische Produktübersicht: [README.md](../README.md).
 
 Die **Central AI-DOS** (Master) ist die Vorlage, die Governance-Quelle und die
 Update-Quelle. Version: Datei [VERSION](../VERSION), derzeit `0.1.0`.
-Historie: [CHANGELOG.md](../CHANGELOG.md) (`0.1.0` dort als unreleased).
+Historie: [CHANGELOG.md](../CHANGELOG.md) (`0.1.0` dort als erste freigegebene Version, 2026-11-01, Tag `v0.1.0`).
 
 Ein Softwareprojekt erhält ein **Embedded AI-DOS** unter `.ai-dos/` plus
 eigene `.cursor/`-Dateien und eine eigene `AGENTS.md`. Das Projekt braucht
@@ -201,7 +201,7 @@ liegen diese Dateien auch im Projekt — dort inaktiv: `README.md`,
 | [README.md](../README.md) | Englische Produktübersicht: Zweck, Architektur, Struktur, Rollen, Skills, Routing, Freigaben, Einbettung, was Cursor heute ausführt, Abweichungen von einer früheren Zielstruktur, Lizenz. |
 | [AGENTS.md](../AGENTS.md) | Kurzer Einstieg für jeden Agenten. Fasst Hierarchie, Prinzipien, Arbeitsweise, Risiko, Workflow und den Unterschied Central/Embedded zusammen und verlinkt die Quellen. |
 | [VERSION](../VERSION) | Einzige Versionsquelle des Masters. Inhalt `0.1.0`. SemVer laut [versioning.md](../integration/versioning.md). |
-| [CHANGELOG.md](../CHANGELOG.md) | Änderungsgeschichte. `0.1.0` ist unreleased. Verweist auf die Versionierungspolitik. |
+| [CHANGELOG.md](../CHANGELOG.md) | Änderungsgeschichte. `0.1.0` ist die erste freigegebene Version (2026-11-01). Verweist auf die Versionierungspolitik. |
 | [.gitignore](../.gitignore) | Git ignoriert Geheimnisse, `orchestration/state/runtime/`, `.ai-dos/state/runtime/`, Logs, Betriebssystemdateien, IDE-Ordner außer den getrackten `.cursor/`-Regeln, und übliche Build-Ordner, falls später Werkzeuge dazukommen. |
 | [.cursorignore](../.cursorignore) | Bitte an Cursor, Geheimnisse, Laufzeit, Logs und große Binärdateien nicht zu indexieren. Best-effort, keine Sicherheitsgrenze. |
 | [.gitattributes](../.gitattributes) | Erzwingt LF für Text, Markdown, MDC und YAML, damit Diffs über Betriebssysteme stabil bleiben. |
@@ -664,7 +664,7 @@ Ehrlich zum Stand dieser Arbeitskopie:
 | `orchestration/state/runtime/` | In `.gitignore` und `.cursorignore` genannt, Verzeichnis nicht vorhanden. |
 | `node_modules/`, `dist/`, `build/`, `.venv/`, `coverage/` | In den Ignore-Dateien für den Fall späterer Werkzeuge. Nicht vorhanden. Kein Paketmanifest. |
 | `governance/workflows/` | Bewusst nicht angelegt. Workflows nur unter `orchestration/workflows/`. |
-| Git-Tags `v*` | Nicht vorhanden. `0.1.0` im Changelog ist unreleased. |
+| Git-Tags `v*` | `v0.1.0` (2026-11-01, auf Axels ausdrückliche Anweisung erstellt). Release-Tags setzt laut `integration/versioning.md` ein Mensch. |
 | Generierte oder ignorierte Massen an Dateien | Keine. Das Produkt ist der oben aufgeführte Markdown-/YAML-/MDC-Baum. |
 
 ## Offene Punkte
