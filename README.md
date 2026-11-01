@@ -205,7 +205,8 @@ templates, AI-DOS evolution and migrations.
 
 - Structure, file classes, path convention, provenance: [integration/README.md](integration/README.md)
 - Manifest and project profile: [manifest schema](integration/manifest.schema.yaml), [profile schema](integration/project-profile.schema.yaml)
-- Workflows (conceptual, performed manually today): [initialize](integration/initialize.md), [update](integration/update.md)
+- Workflows (partly automated by `install.ps1`): [initialize](integration/initialize.md), [update](integration/update.md)
+- Multi-tool: copy this folder to `<project>/.ai-dos/` and run `.ai-dos/install.ps1`; it generates adapters for Cursor, Claude Code, OpenAI Codex and GitHub Copilot ([tool adapters](integration/README.md#tool-adapters), [ADR-002](governance/decisions/002-multi-tool-adapters.md))
 - Versioning: [integration/versioning.md](integration/versioning.md) · state and artifacts: [integration/state-and-artifacts.md](integration/state-and-artifacts.md)
 
 Project rules rank higher (rank 5) than AI-DOS (rank 6): projects may tighten
@@ -274,7 +275,7 @@ AI-DOS path ([path convention](integration/README.md#path-convention)).
 | Risk classification, approval gates, quality gates | Governance Definition — real enforcement only via external tooling (branch protection, CI, permissions) |
 | Model registry and routing | Data (examples only) and manual recommendation; the human selects the model in the IDE |
 | Embedded AI-DOS: manifest, project profile, file classes, path convention | Governance Definition — agents read the files; no tool parses them |
-| Initialize and update AI-DOS in a project | Performed manually following [initialize](integration/initialize.md) / [update](integration/update.md) |
+| Initialize and update AI-DOS in a project | Human copy step + `install.ps1` (adapters, manifest, conflict detection); analysis, decisions, review manual ([initialize](integration/initialize.md) / [update](integration/update.md)) |
 | Task state, audit records, context packages | Conceptual schemas; may be used manually |
 
 ### What is future automation
@@ -283,10 +284,12 @@ AI-DOS path ([path convention](integration/README.md#path-convention)).
 |---|---|
 | Orchestrator (classification, routing, agent execution, gates, approval service, policy engine) | [future-orchestrator.md](orchestration/future-orchestrator.md) |
 | Automatic skill selection by task type, role, capabilities, risk, project profile | [decision 5](governance/README.md#5-skill-adapters) |
-| Integrator for initialize/update with drift detection and three-way comparison | [update](integration/update.md) |
+| Three-way comparison of managed copies during update | [update](integration/update.md) |
 | Validators for manifest, profile, artifacts and state files | [future-orchestrator.md](orchestration/future-orchestrator.md#possible-incremental-path) |
 
-None of this exists as code; nothing in this repository executes it.
+None of this exists as code. The only executable file in this repository is
+`install.ps1` (adapter generation with hash-based drift detection for
+generated files).
 
 ## Deviations from the requested target structure
 

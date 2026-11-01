@@ -5,6 +5,10 @@ skills, workflows and model routing for AI-assisted software development.
 This file is a compact entry point. It summarises and links; the linked
 documents are authoritative.
 
+If you read this file as `.ai-dos/AGENTS.md` inside a software project, it is
+an inactive copy of the master entry point: follow the project's root
+`AGENTS.md`; paths here are relative to `.ai-dos/`.
+
 ## Purpose
 
 Support software development systematically, traceably, securely, testably and
@@ -78,6 +82,12 @@ approval → completion (steps by risk: [orchestration README](orchestration/REA
 This repository is the **Central AI-DOS** (master, version in [VERSION](VERSION)).
 Software projects contain an **Embedded AI-DOS** in `.ai-dos/` plus their own
 `.cursor/` and `AGENTS.md`, and work without access to this repository.
+Installation: copy this folder (without `.git`) to `<project>/.ai-dos/` and run
+`.ai-dos/install.ps1`; it generates adapters for Cursor, Claude Code
+(`CLAUDE.md`, `.claude/`), OpenAI Codex (`AGENTS.md`, `.agents/skills/`) and
+GitHub Copilot (`.github/`) from one source
+([ADR-002](governance/decisions/002-multi-tool-adapters.md)).
+In this master, Claude Code starts from [CLAUDE.md](CLAUDE.md), which imports this file.
 Configuration has three scopes — Global → Project → Task; project rules may
 tighten, never lower, the Security Baseline
 ([hierarchy](governance/principles/governance-hierarchy.md#scopes-global--project--task)).

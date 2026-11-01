@@ -65,7 +65,7 @@ receive task → classify → determine risk → select workflow → select role
 | Honour `.cursorignore` | Yes, best-effort (not a security boundary) |
 | Offer project commands (`.cursor/commands`) and skills (`.cursor/skills`) | Yes, when invoked (AI-DOS skill adapters are explicit-only: `disable-model-invocation: true`; REQUIRES VALIDATION for your version) |
 | Select AI-DOS skills automatically by task type, role, risk or project profile | **No** — explicit invocation only |
-| Initialize or update an embedded AI-DOS in a project | **No** — manual ([initialize](../integration/initialize.md), [update](../integration/update.md)) |
+| Initialize or update an embedded AI-DOS in a project | **No** in Cursor itself — the human copies the folder and runs `.ai-dos/install.ps1` ([initialize](../integration/initialize.md), [update](../integration/update.md)) |
 | Read `.ai-dos/manifest.yaml` / `project-profile.yaml` | **No** native parsing — agents read them by convention |
 | Ask before running terminal commands | Configurable by the user in Cursor settings |
 | Select a model per task automatically based on AI-DOS registry | **No** — human or Cursor's own selection |
