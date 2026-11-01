@@ -6,7 +6,12 @@ in [VERSION](VERSION). Release tags (`v<version>`) are set by a human.
 
 ## Unreleased
 
-- Nothing yet.
+### Changed
+
+- [ADR-002](governance/decisions/002-multi-tool-adapters.md) status
+  `Proposed` → `Accepted`, set by Axel (owner) by explicit instruction in chat
+  on 2026-11-01. No independent review was performed before acceptance; the
+  `REQUIRES VALIDATION` items listed for 0.1.0 remain open.
 
 ## 0.1.0 — 2026-11-01
 

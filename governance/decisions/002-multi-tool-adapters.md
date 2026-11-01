@@ -1,8 +1,9 @@
 # ADR-002: Multi-Tool Adapters and Installer for Embedded AI-DOS
 
-- **Status:** Proposed <!-- drafted by an AI agent; only a human sets Accepted -->
+- **Status:** Accepted <!-- drafted by an AI agent; set to Accepted by a human (Axel) -->
 - **Date:** 2026-11-01
-- **Deciders:** Axel (owner) — requirement and explicit approval of this `CRITICAL` change given in chat on 2026-11-01 (edits to `AGENTS.md`, `governance/decisions/`, `governance/security/ai-security.md`, `integration/`, `templates/`, `docs/`, `CHANGELOG.md`); acceptance of this ADR pending independent review
+- **Deciders:** Axel (owner) — requirement and explicit approval of this `CRITICAL` change given in chat on 2026-11-01 (edits to `AGENTS.md`, `governance/decisions/`, `governance/security/ai-security.md`, `integration/`, `templates/`, `docs/`, `CHANGELOG.md`)
+- **Accepted:** 2026-11-01 by Axel (owner), by explicit instruction in chat. No independent review was performed before acceptance; Axel accepted the ADR without it (see Validation)
 - **Extends:** [ADR-001](001-embedded-project-integration.md) (decision 5 "Generated Cursor files" is widened to all tools; decision 10 "explicit-only skills" is kept)
 
 ## Context
@@ -141,5 +142,11 @@ Not verified (`REQUIRES VALIDATION`): that Cursor, Claude Code, Codex and
 Copilot load the generated files as their documentation describes; that
 `claudeMdExcludes` with `**/.ai-dos/...` patterns matches on Windows paths;
 that Copilot honours `disable-model-invocation`; PowerShell 7 and
-macOS/Linux execution. Like ADR-000 and ADR-001, this ADR needs an
-independent review before a human sets it to `Accepted`.
+macOS/Linux execution.
+
+The original plan was an independent review before a human sets this ADR to
+`Accepted`, as for ADR-000 and ADR-001. That review did **not** take place.
+Axel accepted the ADR on 2026-11-01 by explicit instruction in chat without
+it. Additional evidence at acceptance time: Claude Code was tested once
+manually by Axel in a scratch project (rules loaded, `.env` read denied, no
+force-push). The `REQUIRES VALIDATION` items above remain open.
